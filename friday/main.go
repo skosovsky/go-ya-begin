@@ -7,7 +7,7 @@ import (
 
 func main() {
 	start := time.Date(1, 1, 1, 0, 0, 0, 0, time.UTC)
-	finish := time.Date(3000, 12, 31, 0, 0, 0, 0, time.UTC)
+	finish := time.Date(400, 12, 31, 0, 0, 0, 0, time.UTC)
 
 	dayWeeks := map[time.Weekday]int{}
 
