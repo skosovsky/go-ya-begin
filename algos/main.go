@@ -4,13 +4,12 @@ import (
 	"fmt"
 	"slices"
 	"sort"
+	"strings"
 )
 
 func main() {
-	slc := []int{1, 1, 1, 1, 2, 2}
-	slc = sortSliceLibNew(slc)
-
-	fmt.Println(slc)
+	slc := []string{"Иван Фролов", "Ян Косовский", "Сергей Косовский", "Марк Косовский"}
+	fmt.Println(nameSort(slc))
 }
 
 func sortSlice(slc []int) []int {
@@ -65,4 +64,63 @@ func sortSliceLibNew(slc []int) []int {
 	}
 
 	return result
+}
+
+func findX(slc []int, num int) bool {
+	for _, v := range slc {
+		if v == num {
+			return true
+		}
+	}
+
+	return false
+}
+
+func findXLib(slc []int, num int) bool {
+	idx := sort.Search(len(slc), func(i int) bool {
+		return slc[i] <= num
+	})
+
+	if idx < len(slc) && slc[idx] == num {
+		return true
+	}
+
+	return false
+}
+
+func nameSort(slc []string) []string {
+	var swapSlc, sortSlc []string
+	sortSlc = []string{}
+
+	// Меням фамилию и имя местами
+	for _, v := range slc {
+		var nameSlc, surnameSlc []string
+		fullName := strings.Split(v, " ")
+
+		if len(fullName) != 2 {
+			continue
+		}
+
+		nameSlc = append(nameSlc, fullName[0])
+		surnameSlc = append(surnameSlc, fullName[1])
+
+		swapSlc = append(swapSlc, strings.Join([]string{surnameSlc[0], nameSlc[0]}, " "))
+	}
+
+	// Сортируем по фамилию и имени
+	slices.Sort(swapSlc)
+
+	// Меням фамилию и имя обратно
+	for _, v := range swapSlc {
+		var nameSlc, surnameSlc []string
+		fullName := strings.Split(v, " ")
+
+		surnameSlc = append(surnameSlc, fullName[0])
+		nameSlc = append(nameSlc, fullName[1])
+
+		sortSlc = append(sortSlc, strings.Join([]string{nameSlc[0], surnameSlc[0]}, " "))
+
+	}
+
+	return sortSlc
 }
