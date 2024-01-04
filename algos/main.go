@@ -94,17 +94,13 @@ func nameSort(slc []string) []string {
 
 	// Меням фамилию и имя местами
 	for _, v := range slc {
-		var nameSlc, surnameSlc []string
 		fullName := strings.Split(v, " ")
 
 		if len(fullName) != 2 {
 			continue
 		}
 
-		nameSlc = append(nameSlc, fullName[0])
-		surnameSlc = append(surnameSlc, fullName[1])
-
-		swapSlc = append(swapSlc, strings.Join([]string{surnameSlc[0], nameSlc[0]}, " "))
+		swapSlc = append(swapSlc, strings.Join([]string{fullName[1], fullName[0]}, " "))
 	}
 
 	// Сортируем по фамилию и имени
@@ -112,14 +108,9 @@ func nameSort(slc []string) []string {
 
 	// Меням фамилию и имя обратно
 	for _, v := range swapSlc {
-		var nameSlc, surnameSlc []string
 		fullName := strings.Split(v, " ")
 
-		surnameSlc = append(surnameSlc, fullName[0])
-		nameSlc = append(nameSlc, fullName[1])
-
-		sortSlc = append(sortSlc, strings.Join([]string{nameSlc[0], surnameSlc[0]}, " "))
-
+		sortSlc = append(sortSlc, strings.Join([]string{fullName[0], fullName[1]}, " "))
 	}
 
 	return sortSlc
