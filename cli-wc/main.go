@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 )
@@ -14,13 +16,30 @@ type settings struct {
 	lenLineFlag bool // L
 }
 
+type answer struct {
+	lines   int
+	words   int
+	bytes   int
+	symbols int
+	lenLine int
+	warning string
+}
+
 func main() {
 	flags, files := getParams()
+	var testff answer
 	fmt.Println(flags, files)
 
 	if files == nil {
-		// вызываем функцию по считыванию с консоли
+		fmt.Println(calcFromStdin())
+	} else {
+		for _, file := range files {
+			fmt.Println(calcFromFile(file))
+		}
 	}
+
+	fmt.Printf("%8d%8d%8d%8d%8d %s\n", testff.bytes, testff.bytes, testff.bytes, testff.bytes, testff.bytes, "file")
+
 }
 
 func getParams() (flags settings, files []string) {
@@ -76,4 +95,82 @@ func getParams() (flags settings, files []string) {
 	}
 
 	return flags, files
+}
+
+// 世界 qwer
+// 1 2 12 8 11
+// l-w-c--m-L-
+func calcFromStdin() (result answer) {
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+		line := scanner.Text()
+		result.lines++ // Count lines
+
+		words := strings.Split(line, " ")
+		result.words += len(words) // Count words
+
+		bytes := []byte(line)
+		result.bytes += len(bytes) + 1 // Count bytes + /n
+
+		runes := []rune(line)
+		result.symbols += len(runes) + 1 // Count symbols
+
+		if result.lenLine < len(line) {
+			result.lenLine = len(line) // Count len
+		}
+	}
+
+	if err := scanner.Err(); err != nil {
+		log.Println(err)
+	}
+
+	return result
+}
+
+func calcFromFile(pathFile string) (result answer) {
+	file, err := os.Open(pathFile)
+	if err != nil {
+		result.warning = "wc: " + pathFile + ": open: No such file or directory\n"
+		return result
+	}
+	defer func(file *os.File) {
+		err := file.Close()
+		if err != nil {
+			log.Println(err)
+		}
+	}(file)
+
+	scanner := bufio.NewScanner(file)
+	lastLine := ""
+	for scanner.Scan() {
+		line := scanner.Text()
+		result.lines++ // Count lines
+
+		words := strings.Split(line, " ")
+		result.words += len(words) // Count words
+
+		bytes := []byte(line)
+		result.bytes += len(bytes) + 1 // Count bytes + /n
+
+		runes := []rune(line)
+		result.symbols += len(runes) + 1 // Count symbols + /n
+
+		if result.lenLine < len(line) {
+			result.lenLine = len(line) // Count len
+		}
+
+		lastLine = line
+	}
+
+	if len(lastLine) != 0 { // if no /n in lastLine
+		result.lines--
+		result.bytes--
+		result.symbols--
+	}
+
+	if err := scanner.Err(); err != nil {
+		log.Println(err)
+	}
+
+	return result
 }
