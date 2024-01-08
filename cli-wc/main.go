@@ -26,20 +26,26 @@ type answer struct {
 }
 
 func main() {
+	var total answer
 	flags, files := getParams()
-	var testff answer
-	fmt.Println(flags, files)
 
 	if files == nil {
-		fmt.Println(calcFromStdin())
+		printAnswer(flags, calcFromStdin(), "file")
 	} else {
 		for _, file := range files {
-			fmt.Println(calcFromFile(file))
+			fileValue := calcFromFile(file)
+			total.lines += fileValue.lines
+			total.words += fileValue.words
+			total.bytes += fileValue.bytes
+			total.symbols += fileValue.symbols
+			total.lenLine += fileValue.lenLine
+			printAnswer(flags, fileValue, file)
 		}
+		if len(files) > 1 {
+			printAnswer(flags, total, "total")
+		}
+
 	}
-
-	fmt.Printf("%8d%8d%8d%8d%8d %s\n", testff.bytes, testff.bytes, testff.bytes, testff.bytes, testff.bytes, "file")
-
 }
 
 func getParams() (flags settings, files []string) {
@@ -56,7 +62,7 @@ func getParams() (flags settings, files []string) {
 
 	arg := strings.Split(arguments[0], "")
 
-	if arg[0] == "-" && len(arg) > 1 { // И проверяем, а это флаги?
+	if arg[0] == "-" && len(arg) > 1 { // Check flags
 		for _, flag := range arg[1:] {
 			switch flag {
 			case "l":
@@ -65,11 +71,16 @@ func getParams() (flags settings, files []string) {
 				flags.wordsFlag = true
 			case "m":
 				flags.symbolsFlag = true
+				flags.bytesFlag = false // if m, !c
 			case "L":
 				flags.lenLineFlag = true
 			case "c":
+				if flags.symbolsFlag == true { // if m, !c
+					flags.bytesFlag = false
+					break
+				}
 				flags.bytesFlag = true
-			default: // Если попались не флаги, выходим
+			default: // Exit, if no flags
 				fmt.Println("wc: illegal option --", flag)
 				fmt.Println("usage: wc [-Lclmw] [file ...]")
 				os.Exit(0)
@@ -98,7 +109,7 @@ func getParams() (flags settings, files []string) {
 }
 
 // 世界 qwer
-// 1 2 12 8 11
+// 1 2 12 8 7
 // l-w-c--m-L-
 func calcFromStdin() (result answer) {
 	scanner := bufio.NewScanner(os.Stdin)
@@ -115,8 +126,8 @@ func calcFromStdin() (result answer) {
 		runes := []rune(line)
 		result.symbols += len(runes) + 1 // Count symbols
 
-		if result.lenLine < len(line) {
-			result.lenLine = len(line) // Count len
+		if result.lenLine < len(runes) {
+			result.lenLine = len(runes) // Count len
 		}
 	}
 
@@ -155,14 +166,14 @@ func calcFromFile(pathFile string) (result answer) {
 		runes := []rune(line)
 		result.symbols += len(runes) + 1 // Count symbols + /n
 
-		if result.lenLine < len(line) {
-			result.lenLine = len(line) // Count len
+		if result.lenLine < len(runes) {
+			result.lenLine = len(runes) // Count len
 		}
 
 		lastLine = line
 	}
 
-	if len(lastLine) != 0 { // if no /n in lastLine
+	if len(lastLine) == 0 { // if no /n in lastLine
 		result.lines--
 		result.bytes--
 		result.symbols--
@@ -173,4 +184,32 @@ func calcFromFile(pathFile string) (result answer) {
 	}
 
 	return result
+}
+
+func printAnswer(flags settings, value answer, label string) {
+	if value.warning != "" {
+		fmt.Printf("%s", value.warning)
+		return
+	}
+
+	if flags.linesFlag {
+		fmt.Printf("%8d", value.lines)
+	}
+	if flags.wordsFlag {
+		fmt.Printf("%8d", value.words)
+	}
+	if flags.bytesFlag {
+		fmt.Printf("%8d", value.bytes)
+	}
+	if flags.symbolsFlag {
+		fmt.Printf("%8d", value.symbols)
+	}
+	if flags.lenLineFlag {
+		fmt.Printf("%8d", value.lenLine)
+	}
+	if label != "" {
+		fmt.Printf(" %s", label)
+	}
+
+	fmt.Printf("\n")
 }
