@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"strings"
@@ -124,7 +125,7 @@ func calcFromStdin() (result answer) {
 		result.bytes += len(bytes) + 1 // Count bytes + /n
 
 		runes := []rune(line)
-		result.symbols += len(runes) + 1 // Count symbols
+		result.symbols += len(runes) + 1 // Count symbols + /n
 
 		if result.lenLine < len(runes) {
 			result.lenLine = len(runes) // Count len
@@ -139,6 +140,50 @@ func calcFromStdin() (result answer) {
 }
 
 func calcFromFile(pathFile string) (result answer) {
+	file, err := os.Open(pathFile)
+	if err != nil {
+		result.warning = "wc: " + pathFile + ": open: No such file or directory\n"
+		return result
+	}
+	defer func(file *os.File) {
+		err := file.Close()
+		if err != nil {
+			log.Println(err)
+		}
+	}(file)
+
+	reader := bufio.NewReader(file)
+	for {
+		line, err := reader.ReadString('\n')
+		result.lines++ // Count lines
+
+		words := strings.Split(line, " ")
+		result.words += len(words) // Count words
+
+		bytes := []byte(line)
+		result.bytes += len(bytes) // Count bytes
+
+		runes := []rune(line)
+		result.symbols += len(runes) // Count symbols
+
+		if result.lenLine < len(runes) {
+			result.lenLine = len(runes) // Count len
+		}
+
+		if err != nil {
+			if err == io.EOF {
+				break
+			} else {
+				log.Println(err)
+				return
+			}
+		}
+	}
+
+	return result
+}
+
+func calcFromFile2(pathFile string) (result answer) {
 	file, err := os.Open(pathFile)
 	if err != nil {
 		result.warning = "wc: " + pathFile + ": open: No such file or directory\n"
