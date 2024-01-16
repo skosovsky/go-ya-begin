@@ -158,7 +158,12 @@ func calcFromFile(pathFile string) (result answer) {
 		result.lines++ // Count lines
 
 		words := strings.Split(line, " ")
-		result.words += len(words) // Count words
+		for _, v := range words {
+			if v == "" || v == "\n" {
+				continue
+			}
+			result.words++ // Count words
+		}
 
 		bytes := []byte(line)
 		result.bytes += len(bytes) // Count bytes
@@ -180,53 +185,7 @@ func calcFromFile(pathFile string) (result answer) {
 		}
 	}
 
-	return result
-}
-
-func calcFromFile2(pathFile string) (result answer) {
-	file, err := os.Open(pathFile)
-	if err != nil {
-		result.warning = "wc: " + pathFile + ": open: No such file or directory\n"
-		return result
-	}
-	defer func(file *os.File) {
-		err := file.Close()
-		if err != nil {
-			log.Println(err)
-		}
-	}(file)
-
-	scanner := bufio.NewScanner(file)
-	lastLine := ""
-	for scanner.Scan() {
-		line := scanner.Text()
-		result.lines++ // Count lines
-
-		words := strings.Split(line, " ")
-		result.words += len(words) // Count words
-
-		bytes := []byte(line)
-		result.bytes += len(bytes) + 1 // Count bytes + /n
-
-		runes := []rune(line)
-		result.symbols += len(runes) + 1 // Count symbols + /n
-
-		if result.lenLine < len(runes) {
-			result.lenLine = len(runes) // Count len
-		}
-
-		lastLine = line
-	}
-
-	if len(lastLine) == 0 { // if no /n in lastLine
-		result.lines--
-		result.bytes--
-		result.symbols--
-	}
-
-	if err := scanner.Err(); err != nil {
-		log.Println(err)
-	}
+	result.lines--
 
 	return result
 }
