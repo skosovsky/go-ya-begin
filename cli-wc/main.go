@@ -9,6 +9,16 @@ import (
 	"strings"
 )
 
+const (
+	BytesFlag    = 0x1
+	SymbolsFlag  = 0x2
+	LinesFlag    = 0x4
+	WordsFlag    = 0x8
+	LenLinesFlag = 0x10
+)
+
+type setting int
+
 type settings struct {
 	linesFlag   bool // l
 	wordsFlag   bool // w
@@ -29,7 +39,6 @@ type answer struct {
 func main() {
 	var total answer
 	flags, files := getParams()
-
 	if files == nil {
 		printAnswer(flags, calcFromStdin(), "file")
 	} else {
@@ -47,6 +56,62 @@ func main() {
 		}
 
 	}
+}
+
+func getFlags() (flags setting, files []string) {
+	arguments := os.Args[1:]
+
+	if len(arguments) == 0 {
+		// default settings
+		flags = BytesFlag | LinesFlag | WordsFlag
+
+		return flags, files // files = nil
+	}
+
+	arg := strings.Split(arguments[0], "")
+
+	if arg[0] == "-" && len(arg) > 1 { // Check flags
+		for _, flag := range arg[1:] {
+			switch flag {
+			case "l":
+				flags = flags | LinesFlag
+			case "w":
+				flags = flags | WordsFlag
+			case "m":
+				flags.symbolsFlag = true
+				flags.bytesFlag = false // if m, !c
+			case "L":
+				flags = flags | LenLinesFlag
+			case "c":
+				if flags.symbolsFlag == true { // if m, !c
+					flags.bytesFlag = false
+					break
+				}
+				flags.bytesFlag = true
+			default: // Exit, if no flags
+				fmt.Println("wc: illegal option --", flag)
+				fmt.Println("usage: wc [-Lclmw] [file ...]")
+				os.Exit(0)
+			}
+		}
+
+		files = arguments[1:]
+		if len(files) == 0 {
+			files = nil
+		}
+
+		return flags, files
+	}
+
+	// default settings
+	flags = BytesFlag | LinesFlag | WordsFlag
+
+	files = arguments
+	if len(files) == 0 {
+		files = nil
+	}
+
+	return flags, files
 }
 
 func getParams() (flags settings, files []string) {
