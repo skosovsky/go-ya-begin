@@ -9,16 +9,24 @@ import (
 )
 
 const (
-	K1 = 0.035
-	K2 = 0.029
+	k1          = 0.035
+	k2          = 0.029
+	mToKm       = 1000
+	mToH        = 60
+	formatDate  = "20060102 15:04:05" // формат даты и времени
+	formatTime  = "15:04:05"
+	templateMsg = `Время: %s.
+Количество шагов за сегодня: %d.
+Дистанция составила %.2f км.
+Вы сожгли %.2f ккал.
+%s`
 )
 
 var (
-	Format     = "20060102 15:04:05" // формат даты и времени
-	StepLength = 0.65                // длина шага в метрах
-	Weight     = 75.0                // вес кг
-	Height     = 1.75                // рост м
-	Speed      = 1.39                // скорость м/с
+	StepLength = 0.65 // длина шага в метрах
+	Weight     = 75.0 // вес кг
+	Height     = 1.75 // рост м
+	Speed      = 1.39 // скорость м/с
 )
 
 // parsePackage разбирает входящий пакет в параметре data.
@@ -27,23 +35,26 @@ var (
 // steps — количество шагов
 // ok — true, если время и шаги указаны корректно, и false — в противном случае
 func parsePackage(data string) (t time.Time, steps int, ok bool) {
-	// 1. Разделите строку на две части по запятой в слайс ds
-	// 2. Проверьте, чтобы ds состоял из двух элементов
-	ds := strings.Split(data, ",")
+	// 1. Разделите строку на две части по запятой в слайс dateSteps
+	dateSteps := strings.Split(data, ",")
+	// 2. Проверьте, чтобы dateSteps состоял из двух элементов
+	if len(dateSteps) != 2 {
+		return time.Time{}, 0, false
+	}
 	var err error
 	// получаем время time.Time
-	t, err = time.Parse(Format, ds[0])
+	t, err = time.Parse(formatDate, dateSteps[0])
 	if err != nil {
-		return
+		return time.Time{}, 0, false
 	}
 	// получаем количество шагов
-	steps, err = strconv.Atoi(ds[1])
+	steps, err = strconv.Atoi(dateSteps[1])
 	if err != nil || steps < 0 {
-		return
+		return time.Time{}, 0, false
 	}
 	// отмечаем, что данные успешно разобраны
 	ok = true
-	return
+	return t, steps, ok
 }
 
 // stepsDay перебирает все записи слайса, подсчитывает и возвращает
@@ -51,34 +62,38 @@ func parsePackage(data string) (t time.Time, steps int, ok bool) {
 func stepsDay(storage []string) int {
 	// тема оптимизации не затрагивается, поэтому можно
 	// использовать parsePackage для каждого элемента списка
-	var sumSteps int
-	for _, v := range storage {
-		_, steps, _ := parsePackage(v)
-		sumSteps += steps
+	var totalSteps int
+	for _, p := range storage {
+		_, steps, _ := parsePackage(p)
+		totalSteps += steps
 	}
 
-	return sumSteps
+	return totalSteps
 }
 
 // calories возвращает количество килокалорий, которые потрачены на
 // прохождение указанной дистанции (в метрах) со скоростью 5 км/ч
 func calories(distance float64) float64 {
-	return (K1*Weight + (Speed*Speed/Height)*K2*Weight) * distance / Speed / 60
+	spentCaloriesPerMinute := k1*Weight + (Speed*Speed/Height)*k2*Weight
+	period := distance / Speed / mToH
+
+	return spentCaloriesPerMinute * period
 }
 
 // achievement возвращает мотивирующее сообщение в зависимости от
 // пройденного расстояния в километрах
 func achievement(distance float64) string {
-	switch {
-	case distance >= 6.5:
+	if distance >= 6.5 {
 		return "Отличный результат! Цель достигнута."
-	case distance >= 3.9:
-		return "Неплохо! День был продуктивный."
-	case distance >= 2:
-		return "Завтра наверстаем!"
-	default:
-		return "Лежать тоже полезно. Главное — участие, а не победа!"
 	}
+	if distance >= 3.9 {
+		return "Неплохо! День был продуктивный."
+	}
+	if distance >= 2.0 {
+		return "Завтра наверстаем!"
+	}
+
+	return "Лежать тоже полезно. Главное — участие, а не победа!"
 }
 
 // showMessage выводит строку и добавляет два переноса строк
@@ -99,9 +114,11 @@ func AcceptPackage(data string, storage []string) []string {
 	//    также проверьте количество шагов на равенство нулю
 	t, steps, ok := parsePackage(data)
 	if !ok || steps < 0 {
-		showMessage(`ошибочный формат пакета`)
+		showMessage("ошибочный формат пакета")
 		return storage
-	} else if steps == 0 {
+	}
+
+	if steps == 0 {
 		return storage
 	}
 
@@ -110,27 +127,31 @@ func AcceptPackage(data string, storage []string) []string {
 	//    с текущим днём
 	now := time.Now().UTC()
 	if now.Day() != t.Day() {
-		showMessage(`неверный день`)
+		showMessage("неверный день")
 		return storage
 	}
 
 	// выводим ошибку, если время в пакете больше текущего времени
 	if t.After(now) {
-		showMessage(`некорректное значение времени`)
+		showMessage("некорректное значение времени")
 		return storage
 	}
+
 	// проверки для непустого storage
 	if len(storage) > 0 {
-		// 3. Достаточно сравнить первые len(Format) символов пакета с
-		//    len(Format) символами последней записи storage
+		// 3. Достаточно сравнить первые len(formatDate) символов пакета с
+		//    len(formatDate) символами последней записи storage
 		//    если меньше или равно, то ошибка — некорректное значение времени
-		if data[:len(Format)] <= storage[len(storage)-1][:len(Format)] {
-			showMessage(`некорректное значение времени`)
+		packageDate := data[:len(formatDate)]
+		storageLastDate := storage[len(storage)-1][:len(formatDate)]
+
+		if packageDate <= storageLastDate {
+			showMessage("некорректное значение времени")
 			return storage
 		}
 
 		// смотрим, наступили ли новые сутки: YYYYMMDD — 8 символов
-		if data[:8] != storage[len(storage)-1][:8] {
+		if packageDate != storageLastDate {
 			// если наступили,
 			// то обнуляем слайс с накопленными данными
 			storage = storage[:0]
@@ -140,19 +161,16 @@ func AcceptPackage(data string, storage []string) []string {
 	// 5. Добавить пакет в storage
 	storage = append(storage, data)
 	// 6. Получить общее количество шагов
-	sumSteps := stepsDay(storage)
+	totalSteps := stepsDay(storage)
 	// 7. Вычислить общее расстояние (в метрах)
-	sumDist := float64(sumSteps) * StepLength
+	distanceMeters := float64(totalSteps) * StepLength
 	// 8. Получить потраченные килокалории
-	sumCal := calories(sumDist)
+	spentCalories := calories(distanceMeters)
 	// 9. Получить мотивирующий текст
-	achievText := achievement(sumDist / 1000)
+	achievementMsg := achievement(distanceMeters / mToKm)
 	// 10. Сформировать и вывести полный текст сообщения
-	fmt.Printf("Время: %s.\n", t.Format("15:04:05"))
-	fmt.Printf("Количество шагов за сегодня: %d.\n", sumSteps)
-	fmt.Printf("Дистанция составила %.2f км.\n", sumDist/1000)
-	fmt.Printf("Вы сожгли %.2f ккал.\n", sumCal)
-	showMessage(achievText)
+	msg := fmt.Sprintf(templateMsg, t.Format(formatTime), totalSteps, distanceMeters/mToKm, spentCalories, achievementMsg)
+	showMessage(msg)
 	// 11. Вернуть storage
 	return storage
 }
