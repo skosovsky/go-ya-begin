@@ -13,7 +13,6 @@ func Test_distance(t *testing.T) {
 		args args
 		want float64
 	}{
-		// TODO: Add test cases.
 		{
 			name: "Success test",
 			args: args{
@@ -55,7 +54,6 @@ func Test_meanSpeed(t *testing.T) {
 		args args
 		want float64
 	}{
-		// TODO: Add test cases.
 		{
 			name: "Successful test",
 			args: args{
@@ -106,7 +104,6 @@ func TestShowTrainingInfo(t *testing.T) {
 		args args
 		want string
 	}{
-		// TODO: Add test cases.
 		{
 			name: "run test",
 			args: args{
