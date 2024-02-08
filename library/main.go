@@ -30,15 +30,11 @@ func main() {
 	var roomLib Room
 	roomLib.Name = "Библиотека"
 	roomLib.Things = append(roomLib.Things, pen)
-
 	fmt.Println(roomLib)
 
 	room := Room{
-		Name: "Столовая",
-		Things: []Thing{
-			{Name: "карандаш", Weight: 50},
-			{Name: "кольцо", Weight: 30},
-		},
+		Name:   "Столовая",
+		Things: []Thing{{Name: "карандаш", Weight: 50}, {Name: "кольцо", Weight: 30}},
 	}
 	fmt.Println(room)
 
@@ -50,7 +46,6 @@ func main() {
 		{value: 11, want: 25},
 		{value: 5, want: 13},
 	}
-
 	fmt.Println(list)
 
 	house := House{Name: "Дом v1", Floors: []Floor{{

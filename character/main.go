@@ -11,23 +11,65 @@ type Hero struct {
 	Name          string           // имя героя
 	Health, Power int              // Health здоровье, Power сила
 	Loot          map[string]Thing // добыча
+	Location      string
+}
+
+func (h *Hero) String() string {
+	s := fmt.Sprintf(`Имя: %s
+Здоровье: %d
+Сила: %d
+Местоположение: %s
+`, h.Name, h.Health, h.Power, h.Location)
+
+	return s
+}
+
+func (h *Hero) Say(msg string) {
+	fmt.Printf("%s: %s\n", h.Name, msg)
+}
+
+func (h *Hero) UpHealth(points int) {
+	fmt.Println("Количество здоровья героя", h.Name, "было", h.Health)
+	h.Health += points
+	fmt.Println("Количество здоровья героя", h.Name, "стало", h.Health)
+}
+
+func (h *Hero) MoveTo(location string) {
+	h.Location = location
+	fmt.Printf("%s переместился в %s\n", h.Name, h.Location)
+}
+
+type Magician struct {
+	Hero
+	Magic int
+}
+
+func (m *Magician) String() string {
+	s := fmt.Sprintf(`Имя: %s
+Здоровье: %d
+Сила: %d
+Магия: %d
+Местоположение: %s
+`, m.Name, m.Health, m.Power, m.Magic, m.Location)
+
+	return s
 }
 
 func main() {
-	ken := Character{
-		Name:   "Ken",
-		Health: 100,
-		Speed:  500,
-		Power:  1000,
+	ken := Hero{
+		Name:     "Ken",
+		Health:   100,
+		Power:    1000,
+		Location: "столовая",
 	}
 	ken.Say("Привет! Как тебя зовут?")
 
 	merlin := Magician{
-		Character: Character{
-			Name:   "Merlin",
-			Health: 100,
-			Speed:  250,
-			Power:  400,
+		Hero: Hero{
+			Name:     "Merlin",
+			Health:   100,
+			Power:    400,
+			Location: "библиотека",
 		},
 		Magic: 700,
 	}
@@ -37,42 +79,10 @@ func main() {
 	hero.Name = "Арчибальд"
 	hero.Loot = make(map[string]Thing)
 	fmt.Println(hero)
-}
 
-type Character struct {
-	Name   string // имя
-	Health int    // здоровье
-	Speed  int    // скорость
-	Power  int    // сила
-	Woman  bool   // true, если женский персонаж
-}
+	hero.UpHealth(20)
+	fmt.Println(hero)
 
-func (c Character) String() string {
-	s := fmt.Sprintf(`Имя: %s
-Здоровье: %d
-Скорость: %d
-Сила: %d
-`, c.Name, c.Health, c.Speed, c.Power)
-
-	return s
-}
-
-func (c Character) Say(msg string) {
-	fmt.Printf("%s: %s\n", c.Name, msg)
-}
-
-type Magician struct {
-	Character
-	Magic int
-}
-
-func (m Magician) String() string {
-	s := fmt.Sprintf(`Имя: %s
-Здоровье: %d
-Скорость: %d
-Сила: %d
-Магия: %d
-`, m.Name, m.Health, m.Speed, m.Power, m.Magic)
-
-	return s
+	myHero := Hero{Name: "Артур", Health: 100}
+	myHero.MoveTo("тронный зал")
 }
