@@ -34,5 +34,5 @@ func main() {
 
 	myHero.Attack()
 	myHero.Defense()
-	myHero.Special(20)
+	myHero.Special(30)
 }
