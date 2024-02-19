@@ -14,7 +14,7 @@ func main() {
 	}
 	list = list[:0]
 	for {
-		v, ok := queue.Pop()
+		v, ok := queue.Pull()
 		if !ok {
 			break
 		}
@@ -25,8 +25,9 @@ func main() {
 
 // Queue описывает очередь.
 type Queue struct {
-	front *QueueItem // указатель на первый элемент очереди
-	rear  *QueueItem // указатель на последний элемент очереди
+	head   *QueueItem // указатель на головной элемент очереди
+	tail   *QueueItem // указатель на хвостовой элемент очереди
+	length int        // длина очереди
 }
 
 // QueueItem описывает элемент очереди.
@@ -35,18 +36,19 @@ type QueueItem struct {
 	next  *QueueItem // указатель на следующий элемент
 }
 
-// Pop удаляет первый элемент из очереди и возвращает хранимую там строку.
-func (q *Queue) Pop() (string, bool) {
-	if q.front == nil {
+// Pull удаляет первый элемент из очереди и возвращает хранимую там строку.
+func (q *Queue) Pull() (string, bool) {
+	if q.head == nil {
 		return "", false
 	}
-
-	item := q.front
+	item := q.head
 	value := item.value
-	q.front = item.next
+	q.head = q.head.next
 	item = nil
-	if q.front == nil {
-		q.rear = nil
+	q.length--
+
+	if q.head == nil {
+		q.tail = nil
 	}
 
 	return value, true
@@ -54,15 +56,18 @@ func (q *Queue) Pop() (string, bool) {
 
 // Push добавляет в конец очереди элемент с указанной строкой.
 func (q *Queue) Push(value string) {
-	item := &QueueItem{value: value}
-	if q.front == nil { // нет элементов
-		// очередь пустая, поэтому добавляемый элемент
-		// станет и первым и последним
-		q.front = item
-		q.rear = item
+	item := &QueueItem{
+		value: value,
+		next:  nil,
+	}
+
+	if q.head == nil { // очередь пустая, поэтому добавляемый элемент, станет и первым и последним
+		q.head = item
+		q.tail = item
 		return
 	}
-	q.rear.next = item // текущий последний элемент должен указывать
-	// на добавленный элемент
-	q.rear = item // item становится последним элементом
+
+	q.tail.next = item
+	q.tail = item
+	q.length++
 }
