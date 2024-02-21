@@ -61,13 +61,15 @@ type InfoMessage struct {
 
 // TrainingInfo возвращает структуру InfoMessage, в которой хранится вся информация о проведенной тренировке.
 func (t Training) TrainingInfo() InfoMessage {
-	return InfoMessage{
+	message := InfoMessage{
 		TrainingType: t.TrainingType,
 		Duration:     t.Duration,
 		Distance:     t.distance(),
 		Speed:        t.meanSpeed(),
 		Calories:     t.Calories(),
 	}
+
+	return message
 }
 
 // String возвращает строку с информацией о проведенной тренировке.
@@ -117,13 +119,15 @@ func (r Running) Calories() float64 {
 // TrainingInfo возвращает структуру InfoMessage с информацией о проведенной тренировке.
 // Это переопределенный метод TrainingInfo() из Training.
 func (r Running) TrainingInfo() InfoMessage {
-	return InfoMessage{
+	message := InfoMessage{
 		TrainingType: r.TrainingType,
 		Duration:     r.Duration,
 		Distance:     r.distance(),
 		Speed:        r.meanSpeed(),
 		Calories:     r.Calories(),
 	}
+
+	return message
 }
 
 // Константы для расчета потраченных килокалорий при ходьбе.
@@ -160,13 +164,15 @@ func (w Walking) Calories() float64 {
 // TrainingInfo возвращает структуру InfoMessage с информацией о проведенной тренировке.
 // Это переопределенный метод TrainingInfo() из Training.
 func (w Walking) TrainingInfo() InfoMessage {
-	return InfoMessage{
+	message := InfoMessage{
 		TrainingType: w.TrainingType,
 		Duration:     w.Duration,
 		Distance:     w.distance(),
 		Speed:        w.meanSpeed(),
 		Calories:     w.Calories(),
 	}
+
+	return message
 }
 
 // Константы для расчета потраченных килокалорий при плавании.
@@ -209,13 +215,15 @@ func (s Swimming) Calories() float64 {
 // TrainingInfo returns info about swimming training.
 // Это переопределенный метод TrainingInfo() из Training.
 func (s Swimming) TrainingInfo() InfoMessage {
-	return InfoMessage{
+	message := InfoMessage{
 		TrainingType: s.TrainingType,
 		Duration:     s.Duration,
 		Distance:     s.distance(),
 		Speed:        s.meanSpeed(),
 		Calories:     s.Calories(),
 	}
+
+	return message
 }
 
 // ReadData возвращает информацию о проведенной тренировке.
