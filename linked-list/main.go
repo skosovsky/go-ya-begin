@@ -74,8 +74,9 @@ func popFront(list *Node) int {
 
 	list.value = list.next.value
 	nextItem := list.next.next
-	list.next = nil
+	deletedItem := list.next
 	list.next = nextItem
+	deletedItem.next = nil
 
 	return value
 }
