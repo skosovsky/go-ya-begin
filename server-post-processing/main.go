@@ -53,9 +53,11 @@ const pattern = `<!DOCTYPE html>
 <body>%s</body></html>`
 
 func main() {
-	http.HandleFunc("/", mainHandle)
-	http.HandleFunc("/second/", secondHandle)
-	http.HandleFunc("/example/", exampleHandle)
+	mux := http.NewServeMux()
+
+	mux.HandleFunc("/", mainHandle)
+	mux.HandleFunc("/second/", secondHandle)
+	mux.HandleFunc("/example/", exampleHandle)
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		return

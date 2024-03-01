@@ -1,0 +1,10 @@
+# calc v0.0.0-00010101000000-000000000000 => ../calc
+## explicit; go 1.22.0
+calc
+# github.com/bojanz/currency v1.2.1
+## explicit; go 1.17
+github.com/bojanz/currency
+# github.com/cockroachdb/apd/v3 v3.2.1
+## explicit; go 1.17
+github.com/cockroachdb/apd/v3
+# calc => ../calc
