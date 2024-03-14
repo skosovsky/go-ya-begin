@@ -1,4 +1,4 @@
-package compare
+package compare_test
 
 import (
 	"testing"
