@@ -1,3 +1,6 @@
 [submodule "sprint-6/final-project-encoding-go"]
 	path = sprint-6/final-project-encoding-go
 	url = git@github.com:skosovsky/final-project-encoding-go.git
+[submodule "go-testify"]
+	path = go-testify
+	url = ./go-testify
