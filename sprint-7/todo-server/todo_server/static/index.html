@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            margin: 5px 0;
+        }
+
+        .done {
+            text-decoration: line-through;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const todosList = document.getElementById('todosList');
+            const taskInput = document.getElementById('taskInput');
+            const addButton = document.getElementById('addButton');
+            const serverUrl = 'http://localhost:8080'
+
+            // Загрузка списка задач
+            function loadTodos() {
+                fetch(serverUrl + '/todos')
+                    .then(response => response.json())
+                    .then(data => {
+                        todosList.innerHTML = '';
+                        data.forEach(todo => {
+                            const li = document.createElement('li');
+                            li.textContent = todo.task;
+                            li.className = todo.done ? 'done' : '';
+                            li.setAttribute('data-id', todo.id);
+
+                            const deleteButton = document.createElement('button');
+                            deleteButton.textContent = 'Удалить';
+                            deleteButton.onclick = function () {
+                                deleteTodo(todo.id);
+                            };
+
+                            const toggleButton = document.createElement('button');
+                            toggleButton.textContent = todo.done ? 'Не выполнено' : 'Выполнено';
+                            toggleButton.onclick = function () {
+                                toggleTodo(todo.id);
+                            };
+
+                            li.appendChild(toggleButton);
+                            li.appendChild(deleteButton);
+                            todosList.appendChild(li);
+                        });
+                    });
+            }
+
+            // Добавление новой задачи
+            addButton.onclick = function () {
+                const task = taskInput.value;
+                fetch(serverUrl + '/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({task: task, done: false}),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        taskInput.value = '';
+                        loadTodos();
+                    });
+            };
+
+            // Удаление задачи
+            function deleteTodo(id) {
+                fetch(serverUrl + '/delete?id=' + id, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        loadTodos();
+                    });
+            }
+
+            // Обновление статуса задачи
+            function toggleTodo(id) {
+                const todo = Array.from(todosList.children).find(li => li.getAttribute('data-id') === id);
+                const isDone = todo.classList.contains('done');
+                fetch(serverUrl + '/update', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({id: id, task: todo.textContent, done: !isDone}),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        loadTodos();
+                    });
+            }
+
+            loadTodos();
+        });
+    </script>
+</head>
+<body>
+<h1>Todo List</h1>
+<input type="text" id="taskInput" placeholder="Новая задача">
+<button id="addButton">Добавить</button>
+<ul id="todosList"></ul>
+</body>
+</html>

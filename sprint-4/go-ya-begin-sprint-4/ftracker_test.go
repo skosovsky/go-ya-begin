@@ -115,43 +115,46 @@ func TestShowTrainingInfo(t *testing.T) {
 			countPool:    2,
 		},
 		want: runTest,
-	}, {
-		name: "walking test",
-		args: args{
-			action:       4000,
-			trainingType: "Ходьба",
-			duration:     1,
-			weight:       85,
-			height:       185,
-			lengthPool:   50,
-			countPool:    2,
+	},
+		{
+			name: "walking test",
+			args: args{
+				action:       4000,
+				trainingType: "Ходьба",
+				duration:     1,
+				weight:       85,
+				height:       185,
+				lengthPool:   50,
+				countPool:    2,
+			},
+			want: walkingTest,
 		},
-		want: walkingTest,
-	}, {
-		name: "swimming test",
-		args: args{
-			action:       1000,
-			trainingType: "Плавание",
-			duration:     0.25,
-			weight:       85,
-			height:       185,
-			lengthPool:   100,
-			countPool:    4,
+		{
+			name: "swimming test",
+			args: args{
+				action:       1000,
+				trainingType: "Плавание",
+				duration:     0.25,
+				weight:       85,
+				height:       185,
+				lengthPool:   100,
+				countPool:    4,
+			},
+			want: swimmingTest,
 		},
-		want: swimmingTest,
-	}, {
-		name: "unknown test",
-		args: args{
-			action:       1000,
-			trainingType: "Керлинг",
-			duration:     5,
-			weight:       85,
-			height:       185,
-			lengthPool:   50,
-			countPool:    2,
-		},
-		want: unknownTest,
-	}}
+		{
+			name: "unknown test",
+			args: args{
+				action:       1000,
+				trainingType: "Керлинг",
+				duration:     5,
+				weight:       85,
+				height:       185,
+				lengthPool:   50,
+				countPool:    2,
+			},
+			want: unknownTest,
+		}}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := ShowTrainingInfo(tt.args.action, tt.args.trainingType, tt.args.duration, tt.args.weight, tt.args.height, tt.args.lengthPool, tt.args.countPool); got != tt.want {

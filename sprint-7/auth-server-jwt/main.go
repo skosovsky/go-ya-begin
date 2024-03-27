@@ -105,7 +105,8 @@ func main() {
 			bearerToken := strings.Split(authHeaderValue, " ")
 			if len(bearerToken) == 2 {
 				if verifyUser(bearerToken[1], ReadPermission) {
-					fmt.Fprintf(w, "This is your secret: Hello world\n")
+					partKey := strings.Split(bearerToken[1], ".")[0]
+					fmt.Fprintf(w, "This is your secret: %s\n", partKey)
 					return
 				}
 			}
