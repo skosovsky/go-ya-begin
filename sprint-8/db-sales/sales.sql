@@ -42,7 +42,7 @@ UPDATE products SET price = price + 50;
 UPDATE products SET product = 'Суперзаметки', price = 600 WHERE id = 2;
 
 -- очищаем таблицу sales
--- TRUNCATE TABLE sales; -- не поддерживается SQLite
+DELETE FROM sales;
 
 -- удаляем таблицу sales из базы данных
 DROP TABLE sales;

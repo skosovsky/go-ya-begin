@@ -215,3 +215,52 @@ SELECT *
 SELECT *
   FROM sales
  WHERE client = 48;
+
+-- создать индекс для столбца client
+CREATE INDEX sales_client ON sales (client);
+
+-- создать индекс для столбца date
+CREATE INDEX sales_date ON sales (date, product);
+
+-- вывести созданные индексов по таблице sales
+PRAGMA INDEX_LIST('sales');
+
+-- удалить созданные индексы
+DROP INDEX sales_client;
+DROP INDEX sales_date;
+
+-- используем транзакцию, удаляем все данные о пользователе с id 124 и отменяет через rollback
+SELECT id,
+       fio,
+       login
+  FROM clients
+ WHERE id = 124;
+BEGIN;
+DELETE
+  FROM clients
+ WHERE id = 124;
+DELETE
+  FROM sales
+ WHERE client = 124;
+ROLLBACK;
+SELECT id,
+       fio,
+       login
+  FROM clients
+ WHERE id = 124;
+
+-- используем транзакцию и удалим данные об этом пользователе и применим это через commit
+BEGIN;
+DELETE
+  FROM clients
+ WHERE id = 124;
+DELETE
+  FROM sales
+ WHERE client = 124;
+COMMIT;
+SELECT id, fio, login
+  FROM clients
+ WHERE id = 124;
+SELECT *
+  FROM sales
+ WHERE client = 124;
