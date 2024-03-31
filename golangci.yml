@@ -209,23 +209,27 @@ linters-settings:
     ignore-chan-recv-ok: false
     # Optional list of variable names that should be ignored completely. (defaults to empty list)
     ignore-names:
-      - err
+      - db
+      - in
+      - id
+
     # Optional list of variable declarations that should be ignored completely. (defaults to empty list)
     # Entries must be in one of the following forms (see below for examples):
     # - for variables, parameters, named return values, method receivers, or type parameters:
     #   <name> <type>  (<type> can also be a pointer/slice/map/chan/...)
     # - for constants: const <name>
     ignore-decls:
-      - c echo.Context
-      - t testing.T
-      - f *foo.Bar
+      - ok bool
+      - id int
       - e error
-      - i int
-      - const C
+      - t testing.T
       - T any
-      - m map[string]int
+      - m map
       - w http.ResponseWriter
       - r *http.Request
+      - ch chan
+      - wg sync.WaitGroup
+      - m sync.Mutex
 
 linters:
   disable-all: true
