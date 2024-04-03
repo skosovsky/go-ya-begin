@@ -16,3 +16,6 @@
 [submodule "sprint-8/go-db-sql-query-test"]
 	path = sprint-8/go-db-sql-query-test
 	url = git@github.com:skosovsky/go-db-sql-query-test.git
+[submodule "sprint-8/go-db-sql-final"]
+	path = sprint-8/go-db-sql-final
+	url = git@github.com:skosovsky/go-db-sql-final.git
