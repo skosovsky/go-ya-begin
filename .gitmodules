@@ -1,9 +1,12 @@
 [submodule "sprint-6/final-project-encoding-go"]
 	path = sprint-6/final-project-encoding-go
 	url = git@github.com:skosovsky/final-project-encoding-go.git
+[submodule "sprint-6/go-rest-api-homework"]
+	path = sprint-6/go-rest-api-homework
+	url = git@github.com:skosovsky/go-rest-api-homework.git
 [submodule "sprint-7/go-testify"]
 	path = sprint-7/go-testify
 	url = git@github.com:skosovsky/go-testify.git
 [submodule "sprint-8/go-db-sql-query-test"]
 	path = sprint-8/go-db-sql-query-test
-	url = git@github.com:skosovsky/go-db-sql-query-test.git sprint-8/go-db-sql-query-test
+	url = git@github.com:skosovsky/go-db-sql-query-test.git
