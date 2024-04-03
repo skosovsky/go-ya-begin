@@ -1,3 +1,9 @@
+[submodule "sprint-4/go-ya-begin-sprint-4"]
+	path = sprint-4/go-ya-begin-sprint-4
+	url = git@github.com:skosovsky/go-ya-begin-sprint-4.git
+[submodule "sprint-5/ftracker-5"]
+	path = sprint-5/ftracker-5
+	url = git@github.com:skosovsky/go-first-floor-sprint-five.git
 [submodule "sprint-6/final-project-encoding-go"]
 	path = sprint-6/final-project-encoding-go
 	url = git@github.com:skosovsky/final-project-encoding-go.git
