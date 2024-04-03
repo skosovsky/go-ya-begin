@@ -28,7 +28,8 @@ func selectSales(client int) ([]Sale, error) {
 	}
 	defer db.Close()
 
-	rows, err := db.Query("SELECT product, volume, date FROM sales WHERE client = :client", sql.Named("client", client))
+	rows, err := db.Query("SELECT product, volume, DATE FROM sales WHERE client = :client",
+		sql.Named("client", client))
 	if err != nil {
 		err = fmt.Errorf("db query error: %w", err)
 		return nil, err
@@ -54,7 +55,7 @@ func selectSales(client int) ([]Sale, error) {
 
 	if err = rows.Err(); err != nil {
 		err = fmt.Errorf("rows next error: %w", err)
-		return sales, err
+		return nil, err
 	}
 
 	return sales, nil
