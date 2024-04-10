@@ -70,30 +70,32 @@ func getFlags() (flags setting, files []string) {
 
 	arg := strings.Split(arguments[0], "")
 
-	if arg[0] == "-" && len(arg) > 1 { // Check flags
-		for _, flag := range arg[1:] {
-			switch flag {
-			case "l":
-				flags = flags | LinesFlag
-			case "w":
-				flags = flags | WordsFlag
-			case "m":
-				flags.symbolsFlag = true
-				flags.bytesFlag = false // if m, !c
-			case "L":
-				flags = flags | LenLinesFlag
-			case "c":
-				if flags.symbolsFlag == true { // if m, !c
-					flags.bytesFlag = false
-					break
-				}
-				flags.bytesFlag = true
-			default: // Exit, if no flags
-				fmt.Println("wc: illegal option --", flag)
-				fmt.Println("usage: wc [-Lclmw] [file ...]")
-				os.Exit(0)
-			}
-		}
+	log.Println(arg) // TODO: удалить комментарий ниже и исправить
+
+	//if arg[0] == "-" && len(arg) > 1 { // Check flags
+	//	for _, flag := range arg[1:] {
+	//		switch flag {
+	//		case "l":
+	//			flags = flags | LinesFlag
+	//		case "w":
+	//			flags = flags | WordsFlag
+	//		case "m":
+	//			flags.symbolsFlag = true
+	//			flags.bytesFlag = false // if m, !c
+	//		case "L":
+	//			flags = flags | LenLinesFlag
+	//		case "c":
+	//			if flags.symbolsFlag == true { // if m, !c
+	//				flags.bytesFlag = false
+	//				break
+	//			}
+	//			flags.bytesFlag = true
+	//		default: // Exit, if no flags
+	//			fmt.Println("wc: illegal option --", flag)
+	//			fmt.Println("usage: wc [-Lclmw] [file ...]")
+	//			os.Exit(0)
+	//		}
+	//	}
 
 		files = arguments[1:]
 		if len(files) == 0 {

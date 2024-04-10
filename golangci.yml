@@ -222,6 +222,7 @@ linters-settings:
       - ok bool
       - id int
       - e error
+      - f func
       - t testing.T
       - T any
       - m map
