@@ -14,7 +14,7 @@ func ExampleCycle() {
 	// ExampleCycleFilesAnon()
 }
 
-// Дан список чисел, нужно вывести все простые числа из этого списка
+// Дан список чисел, нужно вывести все простые числа из этого списка.
 func ExampleCyclePrimes() {
 	nums := []int{-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}
 	response := []int{}
@@ -35,7 +35,7 @@ NUMS_LOOP:
 	fmt.Println(response)
 }
 
-// Поведение переменных в цикле range поменяется в Go 1.22
+// Поведение переменных в цикле range поменяется в Go 1.22.
 func ExampleCycleVariable() {
 	nums := []int{0, 10, 20, 30, 40, 50}
 	for i, v := range nums {
@@ -48,7 +48,7 @@ func ExampleCycleVariable() {
 }
 
 // Дан список файлов, для существующих файлов вывести название и заголовок
-// Заголовок это часть файла до первой пустой строки
+// Заголовок это часть файла до первой пустой строки.
 func ExampleCycleFiles() {
 	fileNames := []string{"cycle.txt", "not_exists.go", "cycle.go"}
 	for _, fName := range fileNames {

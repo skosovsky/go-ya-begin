@@ -9,13 +9,13 @@ type Hero struct {
 }
 
 // IncLevel увеличивает уровень героя на единицу.
-// добавьте метод IncLevel()
+// добавьте метод IncLevel().
 func (h *Hero) IncLevel() {
 	h.Level++
 }
 
 // ChangeHealth изменяет здоровье героя на указанную величину.
-// добавьте метод ChangeHealth(dif int)
+// добавьте метод ChangeHealth(dif int).
 func (h *Hero) ChangeHealth(dif int) {
 	h.Health += dif
 }

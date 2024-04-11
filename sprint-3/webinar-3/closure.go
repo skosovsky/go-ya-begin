@@ -100,7 +100,7 @@ func SortCaseIgnore() {
 			return -1
 		}
 		return 1
-		//return cmp.Compare(strings.ToLower(a), strings.ToLower(b))
+		// return cmp.Compare(strings.ToLower(a), strings.ToLower(b))
 	})
 	fmt.Println("Stable sort", stable)
 }

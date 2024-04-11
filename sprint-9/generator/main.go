@@ -15,7 +15,6 @@ func generator(ch chan int, done chan struct{}) {
 			return
 		}
 	}
-
 }
 
 func main() {

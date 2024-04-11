@@ -9,7 +9,7 @@ const (
 	msgTmplDef    = "%s класса %s заблокировал %d урона"
 )
 
-// Hero описывает героя с общими полями для всех классов
+// Hero описывает героя с общими полями для всех классов.
 type Hero struct {
 	Name      string // имя
 	ClassName string // имя класса
@@ -18,63 +18,63 @@ type Hero struct {
 	Def       int    // защита
 }
 
-// Attack возвращает строку с информацией о нанесенном уроне
+// Attack возвращает строку с информацией о нанесенном уроне.
 func (h Hero) Attack() string {
 	return fmt.Sprint("Ваш персонаж нанёс урон равный", h.Damage)
 }
 
-// Defense возвращает строку с информацией о заблокированном уроне
+// Defense возвращает строку с информацией о заблокированном уроне.
 func (h Hero) Defense() string {
 	return fmt.Sprint("Ваш персонаж заблокировал ", h.Def, " урона")
 }
 
-// Warrior описывает класс `Воин`
+// Warrior описывает класс `Воин`.
 type Warrior struct {
 	Hero            // встроенная структура Hero
 	ClassDamage int // урон для класса Воин
 	ClassDef    int // защита для класса Воин
 }
 
-// Метод Attack() для воина
+// Метод Attack() для воина.
 func (w Warrior) Attack() string {
 	return fmt.Sprintf(msgTmplAttack, w.Name, w.ClassName, w.Damage+w.ClassDamage)
 }
 
-// Метод Defense() для воина
+// Метод Defense() для воина.
 func (w Warrior) Defense() string {
 	return fmt.Sprintf(msgTmplDef, w.Name, w.ClassName, w.Def+w.ClassDef)
 }
 
-// Mage описывает класс `Маг`
+// Mage описывает класс `Маг`.
 type Mage struct {
 	Hero            // встроенная структура Hero
 	ClassDamage int // урон для класса Маг
 	ClassDef    int // защита для класса Маг
 }
 
-// Метод Attack() для мага
+// Метод Attack() для мага.
 func (m Mage) Attack() string {
 	return fmt.Sprintf(msgTmplAttack, m.Name, m.ClassName, m.Damage+m.ClassDamage)
 }
 
-// Метод Defense() для мага
+// Метод Defense() для мага.
 func (m Mage) Defense() string {
 	return fmt.Sprintf(msgTmplDef, m.Name, m.ClassName, m.Def+m.ClassDef)
 }
 
-// Healer описывает класс `Лекарь`
+// Healer описывает класс `Лекарь`.
 type Healer struct {
 	Hero            // встроенная структура Hero
 	ClassDamage int // урон для класса Лекарь
 	ClassDef    int // защита для класса Лекарь
 }
 
-// Метод Attack() для лекаря
+// Метод Attack() для лекаря.
 func (h Healer) Attack() string {
 	return fmt.Sprintf(msgTmplAttack, h.Name, h.ClassName, h.Damage+h.ClassDamage)
 }
 
-// Метод Defense() для лекаря
+// Метод Defense() для лекаря.
 func (h Healer) Defense() string {
 	return fmt.Sprintf(msgTmplDef, h.Name, h.ClassName, h.Def+h.ClassDef)
 }

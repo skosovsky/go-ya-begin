@@ -8,7 +8,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// Artist содержит данные об артисте
+// Artist содержит данные об артисте.
 type Artist struct {
 	ID    int      `yaml:"id"`
 	Name  string   `yaml:"name"`

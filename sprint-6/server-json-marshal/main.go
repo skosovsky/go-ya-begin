@@ -15,7 +15,7 @@ type Artist struct {
 	Songs []string `json:"songs"`
 }
 
-// Переменная artists содержит пока один музыкальный коллектив
+// Переменная artists содержит пока один музыкальный коллектив.
 var artists = map[string]Artist{
 	"30 seconds to Mars": {
 		ID:    1,

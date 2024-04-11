@@ -13,22 +13,22 @@ var (
 )
 
 const (
-	// Объявляем привилегии нашей системы
+	// Объявляем привилегии нашей системы.
 	ReadPermission = "read"
 
-	// Объявляем роли нашей системы
+	// Объявляем роли нашей системы.
 	UserRole = "user"
 )
 
 var (
-	// Связка роль — привилегии
+	// Связка роль — привилегии.
 	rolePermissions = map[string][]string{
 		UserRole: {ReadPermission},
 	}
 )
 
 var (
-	// Связка пользователь — роль
+	// Связка пользователь — роль.
 	userRoles = map[string][]string{
 		"Alice2000": {UserRole},
 	}
@@ -36,7 +36,7 @@ var (
 
 // verifyUser — функция, которая выполняет аутентификацию и авторизацию пользователя.
 // token — JWT пользователя.
-// если у пользователь ввел правильные данные,и у него есть необходимая привилегия - возвращаем true, иначе - false
+// если у пользователь ввел правильные данные,и у него есть необходимая привилегия - возвращаем true, иначе - false.
 func verifyUser(token string, permission string) bool {
 	jwtToken, err := jwt.Parse(token, func(t *jwt.Token) (interface{}, error) {
 		return secret, nil

@@ -23,7 +23,7 @@ type Sword struct {
 	Property
 }
 
-// добавьте нужные методы для типов Scroll и Sword
+// добавьте нужные методы для типов Scroll и Sword.
 func (s Scroll) Apply() {
 
 }

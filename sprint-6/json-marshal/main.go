@@ -21,7 +21,7 @@ func main() {
 			Password: "I4mG0ph3R",
 		},
 		{ //nolint:exhaustruct
-			ID:       1, //nolint:gomnd
+			ID:       1, 
 			Name:     "Алиса",
 			Password: "4L1c3iAnD3x",
 		},

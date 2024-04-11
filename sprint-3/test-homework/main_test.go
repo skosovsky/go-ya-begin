@@ -10,7 +10,6 @@ var (
 )
 
 func TestCheckRequiredFiles(t *testing.T) {
-
 	dir, err := os.Getwd()
 	if err != nil {
 		t.Errorf(err.Error())
@@ -32,7 +31,6 @@ req:
 }
 
 func TestSumFunc(t *testing.T) {
-
 	type args struct {
 		a int
 		b int

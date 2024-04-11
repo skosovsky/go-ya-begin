@@ -20,7 +20,7 @@ type Mage struct {
 	Magic int
 }
 
-// определите методы String() для Warrior и Mage
+// определите методы String() для Warrior и Mage.
 func (w Warrior) String() string {
 	return fmt.Sprintf("* %s", w.Name)
 }

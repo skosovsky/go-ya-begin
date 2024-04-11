@@ -15,7 +15,7 @@ type QueueItem struct {
 	next   *QueueItem // указатель на следующий элемент
 }
 
-// Character описывает персонажа игры
+// Character описывает персонажа игры.
 type Character struct {
 	Name  string
 	Level int

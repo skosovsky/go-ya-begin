@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-// напишите функцию Not, которая будет изменять массив [5][10]int
+// напишите функцию Not, которая будет изменять массив [5][10]int.
 func Not(arr *[5][10]int) {
 	for i, v := range *arr {
 		for j := range v {

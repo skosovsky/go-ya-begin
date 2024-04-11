@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-// Hero описывает героя с общими полями для всех классов
+// Hero описывает героя с общими полями для всех классов.
 type Hero struct {
 	Name      string
 	ClassName string
@@ -14,22 +14,22 @@ type Hero struct {
 	Inventory
 }
 
-// Attack возвращает строку с информацией о нанесённом уроне
+// Attack возвращает строку с информацией о нанесённом уроне.
 func (h *Hero) Attack() string {
 	return fmt.Sprintf("Ваш персонаж нанёс урон, равный %d", h.Damage)
 }
 
-// Defense возвращает строку с информацией о заблокированном уроне
+// Defense возвращает строку с информацией о заблокированном уроне.
 func (h *Hero) Defense() string {
 	return fmt.Sprintf("Ваш персонаж заблокировал %d урона", h.Def)
 }
 
-// Inventory описывает инвентарь
+// Inventory описывает инвентарь.
 type Inventory struct {
 	Items map[string]int
 }
 
-// Take добавляет предмет в инвентарь
+// Take добавляет предмет в инвентарь.
 func (i *Inventory) Take(item string) string {
 	i.Items[item]++
 	if _, isAvailable := i.Items[item]; isAvailable && i.Items[item] > 1 {
@@ -38,7 +38,7 @@ func (i *Inventory) Take(item string) string {
 	return fmt.Sprintf("Вы положили %s в инвентарь", item)
 }
 
-// Drop удаляет предмет из инвентаря
+// Drop удаляет предмет из инвентаря.
 func (i *Inventory) Drop(item string) string {
 	if _, isAvailable := i.Items[item]; isAvailable {
 		if i.Items[item] == 1 {
@@ -53,34 +53,34 @@ func (i *Inventory) Drop(item string) string {
 	return fmt.Sprintf("У вас нет предмета %s", item)
 }
 
-// Warrior описывает класс «Воин»
+// Warrior описывает класс «Воин».
 type Warrior struct {
 	Hero
 }
 
-// Buff — специальное умение для Warrior
+// Buff — специальное умение для Warrior.
 func (w *Warrior) Buff() string {
 	w.Def += 20
 	return fmt.Sprintf("%s класса %s увеличил свою защиту.\nЗащита %s теперь %d.\n", w.Name, w.ClassName, w.Name, w.Def)
 }
 
-// Mage описывает класс «Маг»
+// Mage описывает класс «Маг».
 type Mage struct {
 	Hero
 }
 
-// Buff — специальное умение для Mage
+// Buff — специальное умение для Mage.
 func (m *Mage) Buff() string {
 	m.Damage += 30
 	return fmt.Sprintf("%s класса %s усилил свою атаку.\nАтака %s теперь %d.\n", m.Name, m.ClassName, m.Name, m.Damage)
 }
 
-// Healer описывает класс «Лекарь»
+// Healer описывает класс «Лекарь».
 type Healer struct {
 	Hero
 }
 
-// Buff — специальное умение для Healer
+// Buff — специальное умение для Healer.
 func (h *Healer) Buff() string {
 	h.Health += 50
 	return fmt.Sprintf("%s класса %s увеличил своё здоровье.\nЗдоровье %s теперь %d.\n", h.Name, h.ClassName, h.Name, h.Health)

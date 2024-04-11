@@ -12,12 +12,12 @@ type Scroll struct {
 	Magic int
 }
 
-// опишите интерфейсный тип Loot
+// опишите интерфейсный тип Loot.
 type Loot interface {
 	Apply()
 }
 
-// добавьте нужный метод для типов Sword и Scroll
+// добавьте нужный метод для типов Sword и Scroll.
 func (s Sword) Apply() {
 	fmt.Printf("Меч %d\n", s.Power)
 }

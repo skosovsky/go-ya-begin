@@ -7,15 +7,15 @@ import (
 	"time"
 )
 
-// rnd - генератор псевдослучайных чисел
+// rnd - генератор псевдослучайных чисел.
 var rnd = rand.New(rand.NewSource(time.Now().UnixNano()))
 
-// randNum возвращает случайное число в интервале [min, max]
+// randNum возвращает случайное число в интервале [min, max].
 func randNum(min, max int) int {
 	return rnd.Intn(max-min+1) + min
 }
 
-// input запрашивает и возвращает ввод пользователя в консоли
+// input запрашивает и возвращает ввод пользователя в консоли.
 func input(title string) string {
 	fmt.Print(title)
 	var s string

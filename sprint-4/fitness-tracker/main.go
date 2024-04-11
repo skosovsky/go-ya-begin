@@ -1,6 +1,6 @@
 package main
 
-// импортируйте нужные пакеты
+// импортируйте нужные пакеты.
 import (
 	"fmt"
 	"strconv"
@@ -33,7 +33,7 @@ var (
 // Возвращаемые значения:
 // t — дата и время, указанные в пакете
 // steps — количество шагов
-// ok — true, если время и шаги указаны корректно, и false — в противном случае
+// ok — true, если время и шаги указаны корректно, и false — в противном случае.
 func parsePackage(data string) (t time.Time, steps int, ok bool) {
 	// 1. Разделите строку на две части по запятой в слайс dateSteps
 	dateSteps := strings.Split(data, ",")
@@ -58,7 +58,7 @@ func parsePackage(data string) (t time.Time, steps int, ok bool) {
 }
 
 // stepsDay перебирает все записи слайса, подсчитывает и возвращает
-// общее количество шагов
+// общее количество шагов.
 func stepsDay(storage []string) int {
 	// тема оптимизации не затрагивается, поэтому можно
 	// использовать parsePackage для каждого элемента списка
@@ -72,7 +72,7 @@ func stepsDay(storage []string) int {
 }
 
 // calories возвращает количество килокалорий, которые потрачены на
-// прохождение указанной дистанции (в метрах) со скоростью 5 км/ч
+// прохождение указанной дистанции (в метрах) со скоростью 5 км/ч.
 func calories(distance float64) float64 {
 	spentCaloriesPerMinute := k1*Weight + (Speed*Speed/Height)*k2*Weight
 	period := distance / Speed / mToH
@@ -81,7 +81,7 @@ func calories(distance float64) float64 {
 }
 
 // achievement возвращает мотивирующее сообщение в зависимости от
-// пройденного расстояния в километрах
+// пройденного расстояния в километрах.
 func achievement(distance float64) string {
 	if distance >= 6.5 {
 		return "Отличный результат! Цель достигнута."
@@ -96,7 +96,7 @@ func achievement(distance float64) string {
 	return "Лежать тоже полезно. Главное — участие, а не победа!"
 }
 
-// showMessage выводит строку и добавляет два переноса строк
+// showMessage выводит строку и добавляет два переноса строк.
 func showMessage(s string) {
 	fmt.Printf("%s\n\n", s)
 }

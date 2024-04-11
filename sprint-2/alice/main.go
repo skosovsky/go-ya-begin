@@ -107,7 +107,6 @@ func processFriend(name, query string) string {
 			// если город есть, то вызовете whatTime() и
 			// верните "Там сейчас <время>"
 			return fmt.Sprintf("Там сейчас %s", whatTime(city))
-
 		}
 		return "неизвестный запрос"
 	}

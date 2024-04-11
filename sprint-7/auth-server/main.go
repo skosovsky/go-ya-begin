@@ -8,17 +8,17 @@ import (
 )
 
 const (
-	// Объявляем привилегии нашей системы
+	// Объявляем привилегии нашей системы.
 	ReadPermission  = "read"
 	WritePermission = "write"
 
-	// Объявляем роли нашей системы
+	// Объявляем роли нашей системы.
 	AdminRole = "admin"
 	UserRole  = "user"
 )
 
 var (
-	// Связка роль — привилегии
+	// Связка роль — привилегии.
 	rolePermissions = map[string][]string{
 		AdminRole: {ReadPermission, WritePermission},
 		UserRole:  {ReadPermission},
@@ -26,7 +26,7 @@ var (
 )
 
 var (
-	// Связка пользователь — роль
+	// Связка пользователь — роль.
 	userRoles = map[string][]string{
 		"Alice2000": {UserRole},
 		"Mike123":   {AdminRole},
@@ -34,7 +34,7 @@ var (
 )
 
 var (
-	// Связка пользователь - пароль
+	// Связка пользователь - пароль.
 	userPassword = map[string]string{
 		"Alice2000": "17f80754644d33ac685b0842a402229adbb43fc9312f7bdf36ba24237a1f1ffb",
 		"Mike123":   "d9803029af942f5fd8441a1e3649a29d1fc3251f011231a32a979c972f7d3178",
@@ -43,7 +43,7 @@ var (
 
 // verifyUser — функция, которая выполняет аутентификацию и авторизацию пользователя.
 // user — логин пользователя, pass — пароль, permission — необходимая привилегия.
-// если пользователь ввел правильные данные, и у него есть необходимая привилегия — возвращаем true, иначе — false
+// если пользователь ввел правильные данные, и у него есть необходимая привилегия — возвращаем true, иначе — false.
 func verifyUser(user, pass string, permission string) bool {
 	// Процесс аутентификации начался.
 	// получаем хеш пароля

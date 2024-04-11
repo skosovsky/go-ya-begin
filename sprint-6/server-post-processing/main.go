@@ -24,7 +24,7 @@ func mainHandle(w http.ResponseWriter, r *http.Request) {
 func secondHandle(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	if r.Method != http.MethodGet {
-		//w.WriteHeader(http.StatusMethodNotAllowed)
+		// w.WriteHeader(http.StatusMethodNotAllowed)
 		//fmt.Fprintf(w, pattern, "Сервер поддерживает только GET-запросы")
 		http.Error(w, fmt.Sprintf("Сервер не поддерживает %s запросы", r.Method), http.StatusMethodNotAllowed)
 		return

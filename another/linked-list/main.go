@@ -30,7 +30,7 @@ func printList(list *Node) {
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-// pushFront добавляет новый элемент в начало списка
+// pushFront добавляет новый элемент в начало списка.
 func pushFront(list *Node, value int) {
 	secondItem := &Node{
 		value: list.value,
@@ -41,7 +41,7 @@ func pushFront(list *Node, value int) {
 	list.next = secondItem
 }
 
-// pushBack добавляет новый элемент в конец списка
+// pushBack добавляет новый элемент в конец списка.
 func pushBack(list *Node, value int) {
 	lastItem := &Node{
 		value: value,
@@ -55,7 +55,7 @@ func pushBack(list *Node, value int) {
 	beforeLastItem.next = lastItem
 }
 
-// count возвращает кол-во элементов в списке
+// count возвращает кол-во элементов в списке.
 func count(list *Node) int {
 	var counter int
 
@@ -68,7 +68,7 @@ func count(list *Node) int {
 	return counter
 }
 
-// popFront возвращает значение первого элемента и удаляет его из списка
+// popFront возвращает значение первого элемента и удаляет его из списка.
 func popFront(list *Node) int {
 	value := list.value
 
@@ -81,7 +81,7 @@ func popFront(list *Node) int {
 	return value
 }
 
-// popBack возвращает значение последнего элемента и удаляет его из списка
+// popBack возвращает значение последнего элемента и удаляет его из списка.
 func popBack(list *Node) int {
 	beforeLastItem := list
 	lastItem := list
@@ -97,7 +97,7 @@ func popBack(list *Node) int {
 	return value
 }
 
-// isValueInList ищет значение в списке и возвращает true, если оно найдено, в ином случае - false
+// isValueInList ищет значение в списке и возвращает true, если оно найдено, в ином случае - false.
 func isValueInList(list *Node, value int) bool {
 	var isValueFound bool
 
@@ -113,7 +113,7 @@ func isValueInList(list *Node, value int) bool {
 	return isValueFound
 }
 
-// valueByIndex возвращает значение из списка по индексу, если оно есть, в ином случае - error("index out of range")
+// valueByIndex возвращает значение из списка по индексу, если оно есть, в ином случае - error("index out of range").
 func valueByIndex(list *Node, index int) (int, error) {
 	var counter, value int
 	var err error
@@ -137,7 +137,7 @@ func valueByIndex(list *Node, index int) (int, error) {
 	return value, err
 }
 
-// insert добавляет элемент в список в соответствующий индекс
+// insert добавляет элемент в список в соответствующий индекс.
 func insert(list *Node, index, value int) {
 	if index > count(list)-1 {
 		return
@@ -170,7 +170,7 @@ func insert(list *Node, index, value int) {
 	beforeItem.next = item
 }
 
-// replace заменяет элемент в соответствующем индексе списка
+// replace заменяет элемент в соответствующем индексе списка.
 func replace(list *Node, index, value int) {
 	if index > count(list)-1 {
 		return
@@ -190,7 +190,7 @@ func replace(list *Node, index, value int) {
 	item.value = value
 }
 
-// deleteByIndex удаляет элемент из списка по индексу и возвращает его значение. Если индекс неправильный - возвращает error("index out of range")
+// deleteByIndex удаляет элемент из списка по индексу и возвращает его значение. Если индекс неправильный - возвращает error("index out of range").
 func deleteByIndex(list *Node, index int) (int, error) {
 	var counter, value int
 	var err error
@@ -226,7 +226,7 @@ func deleteByIndex(list *Node, index int) (int, error) {
 	return value, err
 }
 
-// sort сортирует список (*)
+// sort сортирует список (*).
 func sort(list *Node) {
 	length := count(list)
 
@@ -255,11 +255,10 @@ func sort(list *Node) {
 			}
 		}
 	}
-
 }
 
 func main() {
-	//var linkedList *Node
+	// var linkedList *Node
 	linkedList := &Node{
 		value: 0,
 		next:  nil,

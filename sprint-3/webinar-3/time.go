@@ -38,7 +38,7 @@ Day of the year: "__2" "002"
 Hour: "15" "3" "03" (PM or AM)
 Minute: "4" "04"
 Second: "5" "05"
-AM/PM mark: "PM"
+AM/PM mark: "PM".
 */
 func ExampleTimeParse() {
 	loc, _ := time.LoadLocation("Europe/Berlin")
@@ -53,7 +53,7 @@ func ExampleTimeParse() {
 	fmt.Println(tomorrowRight)
 }
 
-// Доказать, что 13 число чаще выпадает на пятницу, чем на другие дни недели
+// Доказать, что 13 число чаще выпадает на пятницу, чем на другие дни недели.
 func ExampleTimeFriday13() {
 	day := time.Date(2000, time.January, 13, 12, 0, 0, 0, time.UTC)
 	endDay := time.Date(2400, time.January, 1, 12, 0, 0, 0, time.UTC)
