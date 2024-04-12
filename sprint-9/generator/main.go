@@ -29,7 +29,7 @@ func main() {
 		defer close(done)
 
 		for i := 0; i < 15; i++ {
-			fmt.Print(<-ch, " ")
+			fmt.Print(<-ch, " ") //nolint:forbidigo // it's learning code
 		}
 	}()
 

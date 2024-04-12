@@ -1,12 +1,12 @@
 package main
 
-import "fmt"
+import "log"
 
-// напишите функцию Not, которая будет изменять массив [5][10]int.
+// Not изменяет массив [5][10]int.
 func Not(arr *[5][10]int) {
 	for i, v := range *arr {
 		for j := range v {
-			if (*arr)[i][j] == 0 {
+			if arr[i][j] == 0 {
 				(*arr)[i][j] = 1
 			} else {
 				(*arr)[i][j] = 0
@@ -26,6 +26,6 @@ func main() {
 	// вставьте здесь вызов Not
 	Not(&arr)
 	for _, v := range arr {
-		fmt.Println(v)
+		log.Println(v)
 	}
 }

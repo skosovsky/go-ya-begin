@@ -19,9 +19,31 @@ func tick(ctx context.Context) {
 	}
 }
 
+func selectWithoutTicker(ctx context.Context) {
+	for i := 0; i < 20; i++ {
+		fmt.Print(i, " ") //nolint:forbidigo // it's learning code
+		select {
+		case <-ctx.Done():
+			return
+		default:
+		}
+	}
+}
+
+func selectWithChanDone(ctx context.Context) {
+	for i := 0; i < 20; i++ {
+		fmt.Print(i, " ") //nolint:forbidigo // it's learning code
+		select {
+		case <-ctx.Done():
+			return
+		default:
+		}
+	}
+}
+
 func main() {
 	ctx := context.Background()
 	ctx, cancel := context.WithTimeout(ctx, 1*time.Second)
 	defer cancel()
-	tick(ctx)
+	selectWithoutTicker(ctx)
 }

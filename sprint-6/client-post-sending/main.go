@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -10,12 +9,18 @@ import (
 
 func printAnswer(response *http.Response) {
 	body, err := io.ReadAll(response.Body)
-	response.Body.Close()
 	if err != nil {
 		log.Println("Ошибка:", err)
 		return
 	}
-	fmt.Println(string(body))
+
+	err = response.Body.Close()
+	if err != nil {
+		log.Println("Ошибка:", err)
+		return
+	}
+
+	log.Println(string(body))
 }
 
 func main() {
@@ -30,7 +35,7 @@ func main() {
 		"name":  {"Sergey"},
 	})
 	if err != nil {
-		fmt.Println("Ошибка:", err)
+		log.Println("Ошибка:", err)
 		return
 	}
 	printAnswer(response)
@@ -41,13 +46,18 @@ func main() {
 		return
 	}
 
-	fmt.Println("Код статуса:", response.StatusCode)
+	log.Println("Код статуса:", response.StatusCode)
 	body, err := io.ReadAll(response.Body)
 	if err != nil {
 		log.Println("Ошибка", err)
 		return
 	}
-	response.Body.Close()
 
-	fmt.Println(string(body))
+	err = response.Body.Close()
+	if err != nil {
+		log.Println("Ошибка", err)
+		return
+	}
+
+	log.Println(string(body))
 }

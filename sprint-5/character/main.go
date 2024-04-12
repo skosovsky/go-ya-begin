@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+)
 
 type Thing struct {
 	Name   string
@@ -8,9 +11,9 @@ type Thing struct {
 }
 
 type Hero struct {
-	Name          string           // имя героя
+	Name          string           // Имя героя
 	Health, Power int              // Health здоровье, Power сила
-	Loot          map[string]Thing // добыча
+	Loot          map[string]Thing // Добыча
 	Location      string
 }
 
@@ -25,18 +28,18 @@ func (h *Hero) String() string {
 }
 
 func (h *Hero) Say(msg string) {
-	fmt.Printf("%s: %s\n", h.Name, msg)
+	log.Printf("%s: %s\n", h.Name, msg)
 }
 
 func (h *Hero) UpHealth(points int) {
-	fmt.Println("Количество здоровья героя", h.Name, "было", h.Health)
+	log.Println("Количество здоровья героя", h.Name, "было", h.Health)
 	h.Health += points
-	fmt.Println("Количество здоровья героя", h.Name, "стало", h.Health)
+	log.Println("Количество здоровья героя", h.Name, "стало", h.Health)
 }
 
 func (h *Hero) MoveTo(location string) {
 	h.Location = location
-	fmt.Printf("%s переместился в %s\n", h.Name, h.Location)
+	log.Printf("%s переместился в %s\n", h.Name, h.Location)
 }
 
 type Magician struct {
@@ -73,15 +76,15 @@ func main() {
 		},
 		Magic: 700,
 	}
-	fmt.Println(merlin)
+	log.Println(merlin)
 
 	var hero Hero
 	hero.Name = "Арчибальд"
 	hero.Loot = make(map[string]Thing)
-	fmt.Println(hero)
+	log.Println(hero)
 
 	hero.UpHealth(20)
-	fmt.Println(hero)
+	log.Println(hero)
 
 	myHero := Hero{Name: "Артур", Health: 100}
 	myHero.MoveTo("тронный зал")

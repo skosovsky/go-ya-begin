@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 )
 
 // Hero описывает главного героя игры.
@@ -12,27 +12,27 @@ type Hero struct {
 	Def    int
 }
 
-// Создаём метод атаки.
+// Attack Создаём метод атаки.
 func (h *Hero) Attack() {
-	fmt.Printf("%s нанес урон %d\n", h.Name, h.Damage)
+	log.Printf("%s нанес урон %d\n", h.Name, h.Damage)
 }
 
-// Создаём метод защиты.
+// Defense Создаём метод защиты.
 func (h *Hero) Defense() {
-	fmt.Printf("%s заблокировал %d единиц урона\n", h.Name, h.Def)
+	log.Printf("%s заблокировал %d единиц урона\n", h.Name, h.Def)
 }
 
-// Создаём специальный метод.
-func (h *Hero) Special(healthpoints int) {
-	fmt.Printf("Количество здоровья было %d\n", h.Health)
-	h.Health += healthpoints
-	fmt.Printf("Количество здоровья стало %d\n", h.Health)
+// Special Создаём специальный метод.
+func (h *Hero) Special(healthPoints int) {
+	log.Printf("Количество здоровья было %d\n", h.Health)
+	h.Health += healthPoints
+	log.Printf("Количество здоровья стало %d\n", h.Health)
 }
 
 func main() {
-	myHero := Hero{Name: "Артур", Health: 100, Damage: 30, Def: 20}
+	myHero := Hero{Name: "Артур", Health: 100, Damage: 30, Def: 20} //nolint:gomnd // it's learning code
 
 	myHero.Attack()
 	myHero.Defense()
-	myHero.Special(30)
+	myHero.Special(30) //nolint:gomnd // it's learning code
 }

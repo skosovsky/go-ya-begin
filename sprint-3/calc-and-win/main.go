@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"strings"
 	"time"
@@ -17,29 +18,29 @@ func randNum(min, max int) int {
 
 // input запрашивает и возвращает ввод пользователя в консоли.
 func input(title string) string {
-	fmt.Print(title)
+	log.Print(title)
 	var s string
 	_, err := fmt.Scanln(&s)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 	return s
 }
 
 func setEnemyHealth() int {
-	return randNum(80, 120)
+	return randNum(80, 120) //nolint:gomnd // it's learning code
 }
 
 func getLiteAttack() int {
-	return randNum(2, 5)
+	return randNum(2, 5) //nolint:gomnd // it's learning code
 }
 
 func getMidAttack() int {
-	return randNum(15, 25)
+	return randNum(15, 25) //nolint:gomnd // it's learning code
 }
 
 func getHardAttack() int {
-	return randNum(30, 40)
+	return randNum(30, 40) //nolint:gomnd // it's learning code
 }
 
 func compareValues(enemyHealth, userTotalAttack int) bool {
@@ -47,7 +48,7 @@ func compareValues(enemyHealth, userTotalAttack int) bool {
 	if pointDifference < 0 {
 		return true
 	}
-	return pointDifference <= 10
+	return pointDifference <= 10 //nolint:gomnd // it's learning code
 }
 
 func getUserAttack() int {
@@ -65,11 +66,11 @@ func getUserAttack() int {
 		case "hard":
 			attackValue = getHardAttack()
 		default:
-			fmt.Println("Неизвестный тип атаки:", inputAttack)
+			log.Println("Неизвестный тип атаки:", inputAttack)
 			continue
 		}
 		total += attackValue
-		fmt.Println("Количество очков твоей атаки:", attackValue)
+		log.Println("Количество очков твоей атаки:", attackValue)
 	}
 	return total
 }
@@ -77,12 +78,12 @@ func getUserAttack() int {
 func runGame() bool {
 	enemyHealth := setEnemyHealth()
 	userTotalAttack := getUserAttack()
-	fmt.Println("Тобой нанесён урон противнику равный", userTotalAttack)
-	fmt.Println("Очки здоровья противника до твоей атаки", enemyHealth)
+	log.Println("Тобой нанесён урон противнику равный", userTotalAttack)
+	log.Println("Очки здоровья противника до твоей атаки", enemyHealth)
 	if compareValues(enemyHealth, userTotalAttack) {
-		fmt.Println("Ура! Победа за тобой!")
+		log.Println("Ура! Победа за тобой!")
 	} else {
-		fmt.Println("В этот раз не повезло :( Бой проигран.")
+		log.Println("В этот раз не повезло :( Бой проигран.")
 	}
 	answer := input("Чтобы сыграть ещё раз, введи букву [y] или [Y]: ")
 	return strings.ToUpper(answer) == "Y"
@@ -102,9 +103,9 @@ func main() {
 lite — урон от 2 до 5 очков;
 mid — урон от 15 до 25 очков;
 hard — урон от 30 до 40 очков.
-ВПЕРЁД К ПОБЕДЕ!!!
-`
-	fmt.Println(intro)
+ВПЕРЁД К ПОБЕДЕ!!!`
+
+	log.Println(intro)
 
 	for runGame() {
 	}

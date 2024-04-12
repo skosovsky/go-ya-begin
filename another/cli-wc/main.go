@@ -96,16 +96,16 @@ func getFlags() (flags setting, files []string) {
 	//			os.Exit(0)
 	//		}
 	//	}
+	//
+	//	files = arguments[1:]
+	//	if len(files) == 0 {
+	//		files = nil
+	//	}
+	//
+	//	return flags, files
+	//}
 
-		files = arguments[1:]
-		if len(files) == 0 {
-			files = nil
-		}
-
-		return flags, files
-	}
-
-	// default settings
+	//default settings
 	flags = BytesFlag | LinesFlag | WordsFlag
 
 	files = arguments

@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-var database = map[string]string{
+var database = map[string]string{ //nolint:gochecknoglobals // it's learning code
 	"Сергей":  "Омск",
 	"Соня":    "Москва",
 	"Алексей": "Калининград",
@@ -20,25 +20,25 @@ var database = map[string]string{
 	"Петя":    "Михайловка",
 }
 
-var offsetUTC = map[string]int{
-	"Москва":          3,
-	"Санкт-Петербург": 3,
-	"Новосибирск":     7,
-	"Екатеринбург":    5,
-	"Нижний Новгород": 3,
-	"Казань":          3,
-	"Челябинск":       5,
-	"Омск":            6,
-	"Самара":          4,
-	"Ростов-на-Дону":  3,
-	"Уфа":             5,
-	"Красноярск":      7,
-	"Воронеж":         3,
-	"Пермь":           5,
-	"Волгоград":       3,
-	"Краснодар":       3,
-	"Калининград":     2,
-	"Владивосток":     10,
+var offsetUTC = map[string]int{ //nolint:gochecknoglobals // it's learning code
+	"Москва":          3,  //nolint:gomnd // it's learning code
+	"Санкт-Петербург": 3,  //nolint:gomnd // it's learning code
+	"Новосибирск":     7,  //nolint:gomnd // it's learning code
+	"Екатеринбург":    5,  //nolint:gomnd // it's learning code
+	"Нижний Новгород": 3,  //nolint:gomnd // it's learning code
+	"Казань":          3,  //nolint:gomnd // it's learning code
+	"Челябинск":       5,  //nolint:gomnd // it's learning code
+	"Омск":            6,  //nolint:gomnd // it's learning code
+	"Самара":          4,  //nolint:gomnd // it's learning code
+	"Ростов-на-Дону":  3,  //nolint:gomnd // it's learning code
+	"Уфа":             5,  //nolint:gomnd // it's learning code
+	"Красноярск":      7,  //nolint:gomnd // it's learning code
+	"Воронеж":         3,  //nolint:gomnd // it's learning code
+	"Пермь":           5,  //nolint:gomnd // it's learning code
+	"Волгоград":       3,  //nolint:gomnd // it's learning code
+	"Краснодар":       3,  //nolint:gomnd // it's learning code
+	"Калининград":     2,  //nolint:gomnd // it's learning code
+	"Владивосток":     10, //nolint:gomnd // it's learning code
 }
 
 func whatTime(city string) string {
