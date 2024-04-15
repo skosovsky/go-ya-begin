@@ -23,8 +23,8 @@ func (cache *Cache) Get(i int) int {
 	v = 2 * i
 
 	cache.mu.Lock()
+	defer cache.mu.Unlock()
 	cache.m[i] = v
-	cache.mu.Unlock()
 
 	return v
 }
