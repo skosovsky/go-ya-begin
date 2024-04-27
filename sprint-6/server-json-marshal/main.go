@@ -16,7 +16,7 @@ type Artist struct {
 }
 
 // Переменная artists содержит пока один музыкальный коллектив.
-var artists = map[string]Artist{
+var artists = map[string]Artist{ //nolint:gochecknoglobals // it's learning code
 	"30 seconds to Mars": {
 		ID:    1,
 		Name:  "30 seconds to Mars",
@@ -51,7 +51,7 @@ func JSONHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", JSONHandler)
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	if err := http.ListenAndServe(":8080", nil); err != nil { //nolint:gosec // it's learning code
 		err = fmt.Errorf("failed runing server: %w", err)
 		log.Println(err)
 		return

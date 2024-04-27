@@ -2,7 +2,7 @@ package main
 
 import (
 	"bufio"
-	"fmt"
+	"log"
 	"os"
 	"strings"
 )
@@ -32,7 +32,7 @@ NUMS_LOOP:
 		response = append(response, num)
 	}
 
-	fmt.Println(response)
+	log.Println(response)
 }
 
 // Поведение переменных в цикле range поменяется в Go 1.22.
@@ -40,9 +40,9 @@ func ExampleCycleVariable() {
 	nums := []int{0, 10, 20, 30, 40, 50}
 	for i, v := range nums {
 		iCycle, vCycle := i, v
-		fmt.Println(i, v)
+		log.Println(i, v)
 		defer func() {
-			fmt.Println(iCycle, vCycle, i, v) //nolint:all
+			log.Println(iCycle, vCycle, i, v)
 		}()
 	}
 }
@@ -58,7 +58,7 @@ func ExampleCycleFiles() {
 		}
 		defer func(fName string, fd *os.File) {
 			fd.Close()
-			fmt.Println("Defer", fName)
+			log.Println("Defer", fName)
 		}(fName, fd)
 
 		var sb strings.Builder
@@ -66,7 +66,7 @@ func ExampleCycleFiles() {
 		for {
 			line, err := reader.ReadString('\n')
 			if err != nil {
-				fmt.Println(fName, "ReadLine error", err)
+				log.Println(fName, "ReadLine error", err)
 				break
 			}
 			line = strings.TrimSpace(line)
@@ -76,9 +76,9 @@ func ExampleCycleFiles() {
 			sb.WriteString(line)
 			sb.WriteRune('\n')
 		}
-		fmt.Println(fName)
-		fmt.Println("-----------------")
-		fmt.Println(sb.String())
+		log.Println(fName)
+		log.Println("-----------------")
+		log.Println(sb.String())
 	}
 }
 
@@ -86,33 +86,37 @@ func ExampleCycleFilesAnon() {
 	fileNames := []string{"cycle.txt", "not_exists.go", "cycle.go"}
 	for _, fName := range fileNames {
 		func() { // Добавилась эта строка
-			fd, err := os.OpenFile(fName, os.O_RDONLY, 0666)
+			file, err := os.OpenFile(fName, os.O_RDONLY, 0666)
 			if err != nil {
 				return // continue заменил на return
 			}
 			defer func(fName string, fd *os.File) {
-				fd.Close()
-				fmt.Println("Defer", fName)
-			}(fName, fd)
-
-			var sb strings.Builder
-			reader := bufio.NewReader(fd)
-			for {
-				line, err := reader.ReadString('\n')
+				err = fd.Close()
 				if err != nil {
-					fmt.Println(fName, "ReadLine error", err)
+					log.Println(err)
+				}
+				log.Println("Defer", fName)
+			}(fName, file)
+
+			var builder strings.Builder
+			reader := bufio.NewReader(file)
+			for {
+				var line string
+				line, err = reader.ReadString('\n')
+				if err != nil {
+					log.Println(fName, "ReadLine error", err)
 					return
 				}
 				line = strings.TrimSpace(line)
 				if line == "" {
 					break
 				}
-				sb.WriteString(line)
-				sb.WriteRune('\n')
+				builder.WriteString(line)
+				builder.WriteRune('\n')
 			}
-			fmt.Println(fName)
-			fmt.Println("-----------------")
-			fmt.Println(sb.String())
+			log.Println(fName)
+			log.Println("-----------------")
+			log.Println(builder.String())
 		}() // Добавилась эта строка
 	}
 }

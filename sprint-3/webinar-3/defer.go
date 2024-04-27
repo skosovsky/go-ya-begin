@@ -2,7 +2,7 @@ package main
 
 import (
 	"bufio"
-	"fmt"
+	"log"
 	"os"
 )
 
@@ -16,37 +16,37 @@ func ExampleDefer() {
 }
 
 func ExampleDeferStack() {
-	defer fmt.Println("defer 1")
+	defer log.Println("defer 1")
 
-	fmt.Println("function 1")
-	fmt.Println("function 2")
+	log.Println("function 1")
+	log.Println("function 2")
 
-	defer fmt.Println("defer 2")
-	defer fmt.Println("defer 3")
+	defer log.Println("defer 2")
+	defer log.Println("defer 3")
 
-	fmt.Println("function 3")
+	log.Println("function 3")
 }
 
 func deferHelpeer(s string) {
-	fmt.Println("Defer helper", s)
+	log.Println("Defer helper", s)
 }
 func ExampleDeferRegular() {
 	defer deferHelpeer("1")
-	fmt.Println("Regular 1")
+	log.Println("Regular 1")
 }
 
 func ExampleDeferParams() {
 	counter := 0
 	deferHelper := func(v int) {
-		fmt.Println("deferHelper", "counter", counter, "v", v)
+		log.Println("deferHelper", "counter", counter, "v", v)
 	}
 	defer deferHelper(1)
 	counter = 1
 	defer deferHelper(2)
-	fmt.Println("ExampleDeferParams")
+	log.Println("ExampleDeferParams")
 }
 
-func returnHelpeer(s string) (ret string) {
+func returnHelper(s string) (ret string) {
 	defer func() {
 		if s == "defer" {
 			ret = "This is SPARTA!!!"
@@ -55,31 +55,31 @@ func returnHelpeer(s string) (ret string) {
 	return s
 }
 func ExampleDeferReturn() {
-	fmt.Println("regular", returnHelpeer("regular"))
-	fmt.Println("defer", returnHelpeer("defer"))
+	log.Println("regular", returnHelper("regular"))
+	log.Println("defer", returnHelper("defer"))
 }
 
 func helperDeferPanic() {
 	// panic("I am panic")
 	defer func() {
 		if err := recover(); err != nil {
-			fmt.Println("Recovered", err)
+			log.Println("Recovered", err)
 		}
 	}()
 	panic("I am panic")
 
-	fmt.Println("After panic") //nolint:all
+	log.Println("After panic")
 }
 func ExampleDeferPanic() {
-	fmt.Println("Before panic helper")
+	log.Println("Before panic helper")
 	helperDeferPanic()
-	fmt.Println("After panic helper")
+	log.Println("After panic helper")
 }
 
 func ExampleDeferFile() {
 	fd, err := os.OpenFile("./defer.go", os.O_RDONLY, 0666)
 	if err != nil {
-		fmt.Println("OpenFile error", err)
+		log.Println("OpenFile error", err)
 		return
 	}
 	defer fd.Close()
@@ -87,8 +87,8 @@ func ExampleDeferFile() {
 	reader := bufio.NewReader(fd)
 	line, err := reader.ReadString('\n')
 	if err != nil {
-		fmt.Println("ReadLine error", err)
+		log.Println("ReadLine error", err)
 		return
 	}
-	fmt.Println("ReadLine", line)
+	log.Println("ReadLine", line)
 }

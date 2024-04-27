@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
+	"log"
 )
 
 type User struct {
@@ -15,7 +15,7 @@ type User struct {
 func main() {
 	users := []User{
 		{
-			ID:       2,
+			ID:       2, //nolint:gomnd // it's learning code
 			Name:     "Гофер",
 			Email:    "gopher@gophermate.com",
 			Password: "I4mG0ph3R",
@@ -23,10 +23,12 @@ func main() {
 		{
 			ID:       1,
 			Name:     "Алиса",
+			Email:    "",
 			Password: "4L1c3iAnD3x",
 		},
 		{
-			ID:       3,
+			ID:       3, //nolint:gomnd // it's learning code
+			Name:     "",
 			Email:    "rustocean@rust.org",
 			Password: "Rust0C34n1T$m3",
 		},
@@ -34,8 +36,8 @@ func main() {
 
 	out, err := json.MarshalIndent(users, "", "    ")
 	if err != nil {
-		fmt.Printf("ошибка при сериализации в json: %s\n", err.Error())
+		log.Printf("ошибка при сериализации в json: %s\n", err.Error())
 		return
 	}
-	fmt.Println(string(out))
+	log.Println(string(out))
 }

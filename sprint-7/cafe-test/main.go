@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-var cafeList = map[string][]string{
+var cafeList = map[string][]string{ //nolint:gochecknoglobals // it's learning code
 	"moscow": []string{"Мир кофе", "Сладкоежка", "Кофе и завтраки", "Сытый студент"},
 }
 
@@ -14,14 +14,20 @@ func mainHandle(w http.ResponseWriter, req *http.Request) {
 	countStr := req.URL.Query().Get("count")
 	if countStr == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("count missing"))
+		_, err := w.Write([]byte("count missing"))
+		if err != nil {
+			return
+		}
 		return
 	}
 
 	count, err := strconv.Atoi(countStr)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("wrong count value"))
+		_, err = w.Write([]byte("wrong count value"))
+		if err != nil {
+			return
+		}
 		return
 	}
 
@@ -30,7 +36,10 @@ func mainHandle(w http.ResponseWriter, req *http.Request) {
 	cafe, ok := cafeList[city]
 	if !ok {
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("wrong city value"))
+		_, err = w.Write([]byte("wrong city value"))
+		if err != nil {
+			return
+		}
 		return
 	}
 
@@ -41,12 +50,15 @@ func mainHandle(w http.ResponseWriter, req *http.Request) {
 	answer := strings.Join(cafe[:count], ",")
 
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(answer))
+	_, err = w.Write([]byte(answer))
+	if err != nil {
+		return
+	}
 }
 
 func main() {
 	http.HandleFunc(`/cafe`, mainHandle)
-	err := http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8080", nil) //nolint:gosec // it's learning code
 	if err != nil {
 		panic(err)
 	}

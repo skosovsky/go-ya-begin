@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"io"
 	"log"
@@ -17,7 +18,7 @@ const (
 	LenLinesFlag = 0x10
 )
 
-type setting int
+type setting int //nolint:unused // it's not done
 
 type settings struct {
 	linesFlag   bool // l
@@ -54,11 +55,10 @@ func main() {
 		if len(files) > 1 {
 			printAnswer(flags, total, "total")
 		}
-
 	}
 }
 
-func getFlags() (flags setting, files []string) {
+func getFlags() (flags setting, files []string) { //nolint:unparam // it's not done
 	arguments := os.Args[1:]
 
 	if len(arguments) == 0 {
@@ -72,7 +72,7 @@ func getFlags() (flags setting, files []string) {
 
 	log.Println(arg) // TODO: удалить комментарий ниже и исправить
 
-	//if arg[0] == "-" && len(arg) > 1 { // Check flags
+	// if arg[0] == "-" && len(arg) > 1 { // Check flags
 	//	for _, flag := range arg[1:] {
 	//		switch flag {
 	//		case "l":
@@ -103,9 +103,9 @@ func getFlags() (flags setting, files []string) {
 	//	}
 	//
 	//	return flags, files
-	//}
+	// }
 
-	//default settings
+	// default settings
 	flags = BytesFlag | LinesFlag | WordsFlag
 
 	files = arguments
@@ -116,7 +116,10 @@ func getFlags() (flags setting, files []string) {
 	return flags, files
 }
 
-func getParams() (flags settings, files []string) {
+func getParams() (settings, []string) {
+	var flags settings
+	var files []string
+
 	arguments := os.Args[1:]
 
 	if len(arguments) == 0 {
@@ -143,14 +146,14 @@ func getParams() (flags settings, files []string) {
 			case "L":
 				flags.lenLineFlag = true
 			case "c":
-				if flags.symbolsFlag == true { // if m, !c
+				if flags.symbolsFlag { // if m, !c
 					flags.bytesFlag = false
 					break
 				}
 				flags.bytesFlag = true
 			default: // Exit, if no flags
-				fmt.Println("wc: illegal option --", flag)
-				fmt.Println("usage: wc [-Lclmw] [file ...]")
+				fmt.Println("wc: illegal option --", flag)   //nolint:forbidigo // it's console app
+				fmt.Println("usage: wc [-Lclmw] [file ...]") //nolint:forbidigo // it's console app
 				os.Exit(0)
 			}
 		}
@@ -176,10 +179,12 @@ func getParams() (flags settings, files []string) {
 	return flags, files
 }
 
-// 世界 qwer
-// 1 2 12 8 7
-// l-w-c--m-L-
-func calcFromStdin() (result answer) {
+func calcFromStdin() answer {
+	// 世界 qwer
+	// 1 2 12 8 7
+	// l-w-c--m-L-
+
+	var result answer
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		line := scanner.Text()
@@ -206,14 +211,15 @@ func calcFromStdin() (result answer) {
 	return result
 }
 
-func calcFromFile(pathFile string) (result answer) {
+func calcFromFile(pathFile string) answer {
+	var result answer
 	file, err := os.Open(pathFile)
 	if err != nil {
 		result.warning = "wc: " + pathFile + ": open: No such file or directory\n"
 		return result
 	}
 	defer func(file *os.File) {
-		err := file.Close()
+		err = file.Close()
 		if err != nil {
 			log.Println(err)
 		}
@@ -221,7 +227,8 @@ func calcFromFile(pathFile string) (result answer) {
 
 	reader := bufio.NewReader(file)
 	for {
-		line, err := reader.ReadString('\n')
+		var line string
+		line, err = reader.ReadString('\n')
 		result.lines++ // Count lines
 
 		words := strings.Split(line, " ")
@@ -243,12 +250,12 @@ func calcFromFile(pathFile string) (result answer) {
 		}
 
 		if err != nil {
-			if err == io.EOF {
+			if errors.Is(err, io.EOF) {
 				break
-			} else {
-				log.Println(err)
-				return
 			}
+
+			log.Println(err)
+			return result
 		}
 	}
 
@@ -259,28 +266,28 @@ func calcFromFile(pathFile string) (result answer) {
 
 func printAnswer(flags settings, value answer, label string) {
 	if value.warning != "" {
-		fmt.Printf("%s", value.warning)
+		fmt.Printf("%s", value.warning) //nolint:forbidigo // it's console app
 		return
 	}
 
 	if flags.linesFlag {
-		fmt.Printf("%8d", value.lines)
+		fmt.Printf("%8d", value.lines) //nolint:forbidigo // it's console app
 	}
 	if flags.wordsFlag {
-		fmt.Printf("%8d", value.words)
+		fmt.Printf("%8d", value.words) //nolint:forbidigo // it's console app
 	}
 	if flags.bytesFlag {
-		fmt.Printf("%8d", value.bytes)
+		fmt.Printf("%8d", value.bytes) //nolint:forbidigo // it's console app
 	}
 	if flags.symbolsFlag {
-		fmt.Printf("%8d", value.symbols)
+		fmt.Printf("%8d", value.symbols) //nolint:forbidigo // it's console app
 	}
 	if flags.lenLineFlag {
-		fmt.Printf("%8d", value.lenLine)
+		fmt.Printf("%8d", value.lenLine) //nolint:forbidigo // it's console app
 	}
 	if label != "" {
-		fmt.Printf(" %s", label)
+		fmt.Printf(" %s", label) //nolint:forbidigo // it's console app
 	}
 
-	fmt.Printf("\n")
+	fmt.Printf("\n") //nolint:forbidigo // it's console app
 }

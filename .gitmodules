@@ -19,3 +19,12 @@
 [submodule "sprint-8/go-db-sql-final"]
 	path = sprint-8/go-db-sql-final
 	url = git@github.com:skosovsky/go-db-sql-final.git
+[submodule "sprint-9/go-project-sprint-9"]
+	path = sprint-9/go-project-sprint-9
+	url = git@github.com:skosovsky/go-project-sprint-9.git
+[submodule "sprint-10/final-project-10th-sprint"]
+	path = sprint-10/final-project-10th-sprint
+	url = git@github.com:skosovsky/final-project-10th-sprint.git
+
+
+

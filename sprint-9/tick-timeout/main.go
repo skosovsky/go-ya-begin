@@ -45,5 +45,7 @@ func main() {
 	ctx := context.Background()
 	ctx, cancel := context.WithTimeout(ctx, 1*time.Second)
 	defer cancel()
+	tick(ctx)
+	selectWithChanDone(ctx)
 	selectWithoutTicker(ctx)
 }
