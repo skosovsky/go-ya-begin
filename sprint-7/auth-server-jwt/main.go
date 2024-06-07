@@ -100,7 +100,7 @@ func main() {
 		// проверяем доступы
 		if authHeaderValue != "" { //nolint:nestif // it's learning code
 			bearerToken := strings.Split(authHeaderValue, " ")
-			if len(bearerToken) == 2 { //nolint:gomnd // it's learning code
+			if len(bearerToken) == 2 { //nolint:mnd // it's learning code
 				if verifyUser(bearerToken[1], ReadPermission) {
 					partKey := strings.Split(bearerToken[1], ".")[0]
 					_, err := fmt.Fprintf(w, "This is your secret: %s\n", partKey)

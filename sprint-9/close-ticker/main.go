@@ -6,8 +6,8 @@ import (
 )
 
 func main() {
-	ticker := time.Tick(500 * time.Millisecond) //nolint:gomnd // it's learning code
-	timer := time.NewTimer(10 * time.Second)    //nolint:gomnd // it's learning code
+	ticker := time.Tick(500 * time.Millisecond) //nolint:mnd // it's learning code
+	timer := time.NewTimer(10 * time.Second)    //nolint:mnd // it's learning code
 
 	var count int
 	for {
@@ -15,7 +15,7 @@ func main() {
 		case <-ticker:
 			count++
 			fmt.Print(count, " ") //nolint:forbidigo // it's learning code
-			if count == 10 {      //nolint:gomnd // it's learning code
+			if count == 10 {      //nolint:mnd // it's learning code
 				continue
 				//	close(ticker) // never close <-chan only chan<- or chan
 			}

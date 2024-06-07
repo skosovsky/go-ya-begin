@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+)
 
 // Character содержит общую информацию о герое.
 type Character struct {
@@ -31,8 +34,8 @@ func (m Mage) String() string {
 
 func main() {
 	// проверяем работу метода String()
-	fmt.Println(Warrior{Character: Character{Name: "Крестоносец"}})
-	fmt.Println(Warrior{Character: Character{Name: "Коммандос"}})
-	fmt.Println(Mage{Character: Character{Name: "Шаман"}})
-	fmt.Println(Mage{Character: Character{Name: "Друид"}})
+	log.Println(Warrior{Character: Character{Name: "Крестоносец"}})
+	log.Println(Warrior{Character: Character{Name: "Коммандос"}})
+	log.Println(Mage{Character: Character{Name: "Шаман"}})
+	log.Println(Mage{Character: Character{Name: "Друид"}})
 }

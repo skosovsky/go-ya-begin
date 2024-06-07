@@ -21,24 +21,24 @@ var database = map[string]string{ //nolint:gochecknoglobals // it's learning cod
 }
 
 var offsetUTC = map[string]int{ //nolint:gochecknoglobals // it's learning code
-	"Москва":          3,  //nolint:gomnd // it's learning code
-	"Санкт-Петербург": 3,  //nolint:gomnd // it's learning code
-	"Новосибирск":     7,  //nolint:gomnd // it's learning code
-	"Екатеринбург":    5,  //nolint:gomnd // it's learning code
-	"Нижний Новгород": 3,  //nolint:gomnd // it's learning code
-	"Казань":          3,  //nolint:gomnd // it's learning code
-	"Челябинск":       5,  //nolint:gomnd // it's learning code
-	"Омск":            6,  //nolint:gomnd // it's learning code
-	"Самара":          4,  //nolint:gomnd // it's learning code
-	"Ростов-на-Дону":  3,  //nolint:gomnd // it's learning code
-	"Уфа":             5,  //nolint:gomnd // it's learning code
-	"Красноярск":      7,  //nolint:gomnd // it's learning code
-	"Воронеж":         3,  //nolint:gomnd // it's learning code
-	"Пермь":           5,  //nolint:gomnd // it's learning code
-	"Волгоград":       3,  //nolint:gomnd // it's learning code
-	"Краснодар":       3,  //nolint:gomnd // it's learning code
-	"Калининград":     2,  //nolint:gomnd // it's learning code
-	"Владивосток":     10, //nolint:gomnd // it's learning code
+	"Москва":          3,  //nolint:mnd // it's learning code
+	"Санкт-Петербург": 3,  //nolint:mnd // it's learning code
+	"Новосибирск":     7,  //nolint:mnd // it's learning code
+	"Екатеринбург":    5,  //nolint:mnd // it's learning code
+	"Нижний Новгород": 3,  //nolint:mnd // it's learning code
+	"Казань":          3,  //nolint:mnd // it's learning code
+	"Челябинск":       5,  //nolint:mnd // it's learning code
+	"Омск":            6,  //nolint:mnd // it's learning code
+	"Самара":          4,  //nolint:mnd // it's learning code
+	"Ростов-на-Дону":  3,  //nolint:mnd // it's learning code
+	"Уфа":             5,  //nolint:mnd // it's learning code
+	"Красноярск":      7,  //nolint:mnd // it's learning code
+	"Воронеж":         3,  //nolint:mnd // it's learning code
+	"Пермь":           5,  //nolint:mnd // it's learning code
+	"Волгоград":       3,  //nolint:mnd // it's learning code
+	"Краснодар":       3,  //nolint:mnd // it's learning code
+	"Калининград":     2,  //nolint:mnd // it's learning code
+	"Владивосток":     10, //nolint:mnd // it's learning code
 }
 
 func whatTime(city string) string {

@@ -79,7 +79,7 @@ func JSONHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", JSONHandler)
 	if err := http.ListenAndServe(":8080", nil); err != nil {
-		err = fmt.Errorf("failed runing server: %w", err)
+		err = fmt.Errorf("failed running server: %w", err)
 		log.Println(err)
 		return
 	}

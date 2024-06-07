@@ -25,6 +25,6 @@
 [submodule "sprint-10/final-project-10th-sprint"]
 	path = sprint-10/final-project-10th-sprint
 	url = git@github.com:skosovsky/final-project-10th-sprint.git
-
-
-
+[submodule "sprint-11/docker-final-main"]
+	path = sprint-11/docker-final-main
+	url = git@github.com:skosovsky/docker-final-main.git

@@ -5,20 +5,20 @@ import (
 	"sync"
 )
 
-// Counter Счетчик с защитой мьютексом
+// Counter Счетчик с защитой мьютексом.
 type Counter struct {
 	sync.RWMutex
 	count int
 }
 
-// Increment увеличивает счетчик на 1
+// Increment увеличивает счетчик на 1.
 func (c *Counter) Increment() {
 	c.Lock()
 	defer c.Unlock()
 	c.count++
 }
 
-// Value возвращает текущее значение счетчика
+// Value возвращает текущее значение счетчика.
 func (c *Counter) Value() int {
 	c.RLock()
 	defer c.RUnlock()

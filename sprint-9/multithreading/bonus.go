@@ -5,7 +5,7 @@ import (
 )
 
 /*
-func RunBonus() {
+Func RunBonus() {
 	work := []int{1, 2, 3, 4, 5, 6, 7, 8}
 	in := generateWork(work)
 
@@ -92,13 +92,13 @@ func generateWork(work []int) <-chan int {
 	}()
 
 	return ch
-}
+}.
 */
 
-// Optimal -------------------------------------------------------------------------------------------------------------
+// Optimal -------------------------------------------------------------------------------------------------------------.
 
 /*
-func RunBonus() {
+Func RunBonus() {
 	work := []int{1, 2, 3, 4, 5, 6, 7, 8}
 	in := generateWork(work)
 
@@ -156,7 +156,7 @@ func generateWork(work []int) <-chan int {
 		}
 	}()
 	return ch
-}
+}.
 */
 
 func RunBonus() {

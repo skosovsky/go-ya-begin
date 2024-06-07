@@ -13,7 +13,7 @@ import (
 // Она не принимает Context или канал с событием отмены как аргумент.
 
 func executeTask() {
-	time.Sleep(10 * time.Second) //nolint:gomnd // it's learning code
+	time.Sleep(10 * time.Second) //nolint:mnd // it's learning code
 }
 
 func executeTaskWithTimeout(ctx context.Context, timeout time.Duration) error {
@@ -44,7 +44,7 @@ func main() {
 	// Если executeTask была отменена по тайм-ауту, нужно вернуть ошибку
 
 	ctx := context.Background()
-	timeout := 5 * time.Second //nolint:gomnd // it's learning code
+	timeout := 5 * time.Second //nolint:mnd // it's learning code
 	err := executeTaskWithTimeout(ctx, timeout)
 	if err != nil {
 		log.Println(err)

@@ -30,9 +30,9 @@ func (h *Hero) Special(healthPoints int) {
 }
 
 func main() {
-	myHero := Hero{Name: "Артур", Health: 100, Damage: 30, Def: 20} //nolint:gomnd // it's learning code
+	myHero := Hero{Name: "Артур", Health: 100, Damage: 30, Def: 20} //nolint:mnd // it's learning code
 
 	myHero.Attack()
 	myHero.Defense()
-	myHero.Special(30) //nolint:gomnd // it's learning code
+	myHero.Special(30) //nolint:mnd // it's learning code
 }

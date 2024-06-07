@@ -28,19 +28,19 @@ func input(title string) string {
 }
 
 func setEnemyHealth() int {
-	return randNum(80, 120) //nolint:gomnd // it's learning code
+	return randNum(80, 120) //nolint:mnd // it's learning code
 }
 
 func getLiteAttack() int {
-	return randNum(2, 5) //nolint:gomnd // it's learning code
+	return randNum(2, 5) //nolint:mnd // it's learning code
 }
 
 func getMidAttack() int {
-	return randNum(15, 25) //nolint:gomnd // it's learning code
+	return randNum(15, 25) //nolint:mnd // it's learning code
 }
 
 func getHardAttack() int {
-	return randNum(30, 40) //nolint:gomnd // it's learning code
+	return randNum(30, 40) //nolint:mnd // it's learning code
 }
 
 func compareValues(enemyHealth, userTotalAttack int) bool {
@@ -48,7 +48,7 @@ func compareValues(enemyHealth, userTotalAttack int) bool {
 	if pointDifference < 0 {
 		return true
 	}
-	return pointDifference <= 10 //nolint:gomnd // it's learning code
+	return pointDifference <= 10 //nolint:mnd // it's learning code
 }
 
 func getUserAttack() int {

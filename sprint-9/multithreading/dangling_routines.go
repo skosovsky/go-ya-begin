@@ -17,7 +17,7 @@ func RunDanglingRoutines() {
 	time.Sleep(15 * time.Second)
 	log.Println("point 2")
 
-	//runtime.Goexit()
+	// runtime.Goexit()
 }
 
 func executeTaskWithTimeout(ctx context.Context, timeout time.Duration) error {
@@ -33,7 +33,7 @@ func executeTaskWithTimeout(ctx context.Context, timeout time.Duration) error {
 		log.Println("point 4")
 		done <- struct{}{}
 		log.Println("point 5")
-		//close(done)
+		// close(done)
 		log.Println("point 6")
 	}()
 

@@ -45,17 +45,17 @@ func ExampleClosureLikeObject() {
 	log.Println("One")
 	inc1, dec1, get1 := CreateClosureLikeObject()
 	log.Println(get1())
-	inc1(3) //nolint:gomnd // it's learning code
+	inc1(3) //nolint:mnd // it's learning code
 	log.Println(get1())
-	dec1(2) //nolint:gomnd // it's learning code
+	dec1(2) //nolint:mnd // it's learning code
 	log.Println(get1())
 
 	log.Println("Two")
 	inc2, dec2, get2 := CreateClosureLikeObject()
 	log.Println(get2())
-	inc2(30) //nolint:gomnd // it's learning code
+	inc2(30) //nolint:mnd // it's learning code
 	log.Println(get2())
-	dec2(20) //nolint:gomnd // it's learning code
+	dec2(20) //nolint:mnd // it's learning code
 	log.Println(get2())
 
 	log.Println("1 not changed", get1())

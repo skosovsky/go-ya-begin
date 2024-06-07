@@ -1,0 +1,30 @@
+services:
+  server:
+    build: .
+    ports:
+      - "8080-8085:8080"
+    deploy:
+      replicas: 3
+  web:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "3000-3005:3000"
+    deploy:
+      replicas: 2
+    volumes:
+      - .:/usr/src/app
+  db:
+    image: postgres:alpine
+    ports:
+      - "8001:5432"
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+volumes:
+  postgres-db:

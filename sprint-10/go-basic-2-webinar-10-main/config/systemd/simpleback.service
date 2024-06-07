@@ -1,0 +1,10 @@
+[Unit]
+Description=Simple backend
+After=syslog.target
+
+[Service]
+Type=simple
+ExecStart=/home/vmarunin/go-basic-2-webinar-10/bin/simpleback
+
+[Install]
+WantedBy=multi-user.target

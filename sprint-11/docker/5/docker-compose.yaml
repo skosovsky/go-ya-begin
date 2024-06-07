@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  counter:
+    build: counter
+    volumes:
+      - ./counter/counter.txt:/app/counter.txt
+
+  ping:
+    build: ping
+    ports:
+      - '8080:8080'

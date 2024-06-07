@@ -14,7 +14,7 @@ func deposit(value int, wg *sync.WaitGroup) {
 	defer wg.Done()
 	mu.Lock()
 	defer mu.Unlock()
-	//fmt.Printf("Depositing %d to account with balance: %d\n", value, balance)
+	// fmt.Printf("Depositing %d to account with balance: %d\n", value, balance)
 	balance += value
 }
 

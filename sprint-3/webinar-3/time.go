@@ -65,4 +65,4 @@ func ExampleTimeFriday13() {
 	fmt.Println(counter)
 }
 
-// Тикер и таймер будут потом
+// Тикер и таймер будут потом.

@@ -35,9 +35,9 @@ func main() {
 
 	cache := NewCache()
 
-	cache.Set("1", 567, 100*time.Millisecond) //nolint:gomnd // it's learning code
-	cache.Set("2", 22, 200*time.Millisecond)  //nolint:gomnd // it's learning code
-	cache.Set("3", 9, 300*time.Millisecond)   //nolint:gomnd // it's learning code
+	cache.Set("1", 567, 100*time.Millisecond) //nolint:mnd // it's learning code
+	cache.Set("2", 22, 200*time.Millisecond)  //nolint:mnd // it's learning code
+	cache.Set("3", 9, 300*time.Millisecond)   //nolint:mnd // it's learning code
 
 	// определяем локальную функцию
 	printData := func() {

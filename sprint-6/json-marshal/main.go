@@ -15,18 +15,18 @@ type User struct {
 func main() {
 	users := []User{
 		{
-			ID:       2, //nolint:gomnd
+			ID:       2, //nolint:mnd
 			Name:     "Гофер",
 			Email:    "gopher@gophermate.com",
 			Password: "I4mG0ph3R",
 		},
 		{ //nolint:exhaustruct
-			ID:       1, 
+			ID:       1,
 			Name:     "Алиса",
 			Password: "4L1c3iAnD3x",
 		},
 		{ //nolint:exhaustruct
-			ID:       3, //nolint:gomnd
+			ID:       3, //nolint:mnd
 			Email:    "rustocean@rust.org",
 			Password: "Rust0C34n1T$m3",
 		},

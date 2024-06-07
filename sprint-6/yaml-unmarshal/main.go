@@ -21,6 +21,7 @@ func main() {
 	if err != nil {
 		err = fmt.Errorf("filed to read file: %w", err)
 		log.Println(err)
+
 		return
 	}
 
@@ -30,11 +31,12 @@ func main() {
 	if err != nil {
 		err = fmt.Errorf("filed to unmarshal: %w", err)
 		log.Println(err)
+
 		return
 	}
 
-	fmt.Println("ID:", artist.ID)
-	fmt.Println("Name:", artist.Name)
-	fmt.Println("Genre:", artist.Genre)
-	fmt.Printf("Songs: %v\n", artist.Songs)
+	log.Println("ID:", artist.ID)
+	log.Println("Name:", artist.Name)
+	log.Println("Genre:", artist.Genre)
+	log.Printf("Songs: %v\n", artist.Songs)
 }

@@ -7,7 +7,7 @@ import (
 )
 
 func tick(ctx context.Context) {
-	ticker := time.NewTicker(300 * time.Millisecond) //nolint:gomnd // it's learning code
+	ticker := time.NewTicker(300 * time.Millisecond) //nolint:mnd // it's learning code
 	defer ticker.Stop()
 	for i := 0; i < 20; i++ {
 		select {

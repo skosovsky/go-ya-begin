@@ -156,17 +156,17 @@ func main() {
 	fmt.Println(selected) //nolint:forbidigo // it's learning code
 
 	// test func
-	err = insertProduct(db.DB, "Облачное хранилище", 300) //nolint:gomnd // it's learning code
+	err = insertProduct(db.DB, "Облачное хранилище", 300) //nolint:mnd // it's learning code
 	if err != nil {
 		log.Println(err)
 	}
 
-	err = updatePriceProduct(db.DB, 1, 700) //nolint:gomnd // it's learning code
+	err = updatePriceProduct(db.DB, 1, 700) //nolint:mnd // it's learning code
 	if err != nil {
 		log.Println(err)
 	}
 
-	err = deleteClient(db.DB, 3) //nolint:gomnd // it's learning code
+	err = deleteClient(db.DB, 3) //nolint:mnd // it's learning code
 	if err != nil {
 		log.Println(err)
 	}

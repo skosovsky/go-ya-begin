@@ -7,7 +7,7 @@ import (
 )
 
 var cafeList = map[string][]string{ //nolint:gochecknoglobals // it's learning code
-	"moscow": []string{"Мир кофе", "Сладкоежка", "Кофе и завтраки", "Сытый студент"},
+	"moscow": {"Мир кофе", "Сладкоежка", "Кофе и завтраки", "Сытый студент"},
 }
 
 func mainHandle(w http.ResponseWriter, req *http.Request) {

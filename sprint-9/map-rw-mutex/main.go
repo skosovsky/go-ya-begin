@@ -34,7 +34,7 @@ func main() {
 		go func() {
 			for {
 				cacheData.Set("a", ".")
-				time.Sleep(50 * time.Millisecond) //nolint:gomnd // it's learning code
+				time.Sleep(50 * time.Millisecond) //nolint:mnd // it's learning code
 			}
 		}()
 	}
@@ -48,7 +48,7 @@ func main() {
 				if count%10 == 0 {
 					fmt.Print(v) //nolint:forbidigo // it's learning code
 				}
-				time.Sleep(20 * time.Millisecond) //nolint:gomnd // it's learning code
+				time.Sleep(20 * time.Millisecond) //nolint:mnd // it's learning code
 			}
 		}()
 	}

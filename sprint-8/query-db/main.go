@@ -26,7 +26,7 @@ func main() {
 	}
 	defer db.Close()
 
-	rows, err := db.Query("SELECT id, product, price FROM products WHERE price > :price", sql.Named("price", 500)) //nolint:gomnd // it's learning code
+	rows, err := db.Query("SELECT id, product, price FROM products WHERE price > :price", sql.Named("price", 500)) //nolint:mnd // it's learning code
 	if err != nil {
 		log.Println(err)
 		return

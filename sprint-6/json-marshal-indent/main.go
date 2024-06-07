@@ -15,7 +15,7 @@ type User struct {
 func main() {
 	users := []User{
 		{
-			ID:       2, //nolint:gomnd // it's learning code
+			ID:       2, //nolint:mnd // it's learning code
 			Name:     "Гофер",
 			Email:    "gopher@gophermate.com",
 			Password: "I4mG0ph3R",
@@ -27,7 +27,7 @@ func main() {
 			Password: "4L1c3iAnD3x",
 		},
 		{
-			ID:       3, //nolint:gomnd // it's learning code
+			ID:       3, //nolint:mnd // it's learning code
 			Name:     "",
 			Email:    "rustocean@rust.org",
 			Password: "Rust0C34n1T$m3",
