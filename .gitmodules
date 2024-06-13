@@ -28,3 +28,6 @@
 [submodule "sprint-11/docker-final-main"]
 	path = sprint-11/docker-final-main
 	url = git@github.com:skosovsky/docker-final-main.git
+[submodule "sprint-12/hello-world"]
+	path = sprint-12/hello-world
+	url = git@github.com:skosovsky/hello-world.git
